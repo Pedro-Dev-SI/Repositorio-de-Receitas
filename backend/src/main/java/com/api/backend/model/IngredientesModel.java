@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "TB_INGREDIENTES")
 public class IngredientesModel implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -20,33 +25,46 @@ public class IngredientesModel implements Serializable {
 	@Column(nullable = false, length = 70)
 	private String quantidade; //drpodown com campo de texto
 	
+	@ManyToOne
+	private ReceitaModel receitaModel;
 	
 	//GETTERS AND SETTERS
+
 	public UUID getIid() {
 		return iid;
 	}
+
 	public void setIid(UUID iid) {
 		this.iid = iid;
 	}
+
 	public String getNome_ingrediente() {
 		return nome_ingrediente;
 	}
+
 	public void setNome_ingrediente(String nome_ingrediente) {
 		this.nome_ingrediente = nome_ingrediente;
 	}
+
 	public String getQuantidade() {
 		return quantidade;
 	}
+
 	public void setQuantidade(String quantidade) {
 		this.quantidade = quantidade;
 	}
+	
+	public ReceitaModel getReceitaModel() {
+		return receitaModel;
+	}
+
+	public void setReceitaModel(ReceitaModel receitaModel) {
+		this.receitaModel = receitaModel;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-
-	
-	
 	
 	
 }
