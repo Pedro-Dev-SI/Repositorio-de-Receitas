@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.api.backend.dto.ReceitaDto;
 import com.api.backend.model.ReceitaModel;
 import com.api.backend.services.ReceitaService;
 
@@ -41,12 +40,10 @@ public class ReceitaController {
 	
 	//MÉTODO POST
 	@PostMapping
-	public ResponseEntity<Object> saveReceita(@RequestBody @Valid ReceitaDto receitaDto){
+	public ResponseEntity<Object> saveReceita(@RequestBody @Valid ReceitaModel receitaModel){
 		
 		/*Aqui abaixo é uma conversão de DTO para model, pois quando o usuario envia valores ele está enviando um DTO e não um model*/
 		
-		var receitaModel = new ReceitaModel();
-		BeanUtils.copyProperties(receitaDto, receitaModel);
 		return ResponseEntity.status(HttpStatus.CREATED).body(receitaService.save(receitaModel));
 		
 	}
@@ -87,7 +84,7 @@ public class ReceitaController {
 	//MÉTODO UPDATE
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateReceita(@PathVariable(value="id") UUID id, 
-			@RequestBody @Valid ReceitaDto receitaDto){
+			@RequestBody @Valid ReceitaModel receitaModel){
 		
 		Optional<ReceitaModel> receitaModelOptional = receitaService.findById(id);
 		
@@ -95,8 +92,6 @@ public class ReceitaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Receita não encontrada");
 		}
 		
-		var receitaModel = new ReceitaModel();
-		BeanUtils.copyProperties(receitaDto, receitaModel);
 		receitaModel.setId(receitaModelOptional.get().getId());
 		return ResponseEntity.status(HttpStatus.OK).body(receitaService.save(receitaModel));
 	}

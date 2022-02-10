@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.backend.dto.IngredientesDto;
 import com.api.backend.model.IngredientesModel;
 import com.api.backend.services.IngredientesService;
 
@@ -33,15 +31,13 @@ public class IngredientesController {
 		
 		//MÉTODO POST
 		@PostMapping
-		public ResponseEntity<Object> saveIngredientes(@RequestBody @Valid IngredientesDto ingredientesDto){
+		public ResponseEntity<Object> saveIngredientes(@RequestBody @Valid IngredientesModel ingredientesModel){
 				
-				var ingredientesModel = new IngredientesModel();
-				BeanUtils.copyProperties(ingredientesDto, ingredientesModel);
 				return ResponseEntity.status(HttpStatus.CREATED).body(ingredientesService.save(ingredientesModel));
 		}
 		
 		//MÉTODO DELETE
-		@DeleteMapping("/{id}")
+		@DeleteMapping("/{iid}")
 		public ResponseEntity<Object> deleteIngredientes(@PathVariable(value = "iid") UUID iid){
 				Optional<IngredientesModel> ingredientesModelOptional = ingredientesService.findById(iid);
 				

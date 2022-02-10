@@ -1,5 +1,6 @@
 package com.api.backend.model;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,12 +37,29 @@ public class ReceitaModel implements Serializable {
 	//Usei o CascadeType.ALL pelo motivo de quando eu salvar a receita vai salvar o modo de preparo e os ingredientes
 	//do mesmo modo quando eu apagar uma receita
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receitaModel")
-	private List<IngredientesModel> ingredientes;
+	private List<IngredientesModel> ingredientes = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receitaModel")
 	private List<ModoPreparoModel> modoPreparo;
 	
 	
+	public ReceitaModel() {
+		
+	}
+	
+	public ReceitaModel(UUID id, String nome_receita, String tempo_preparo, String categoria, String nome_chef,
+			String rendimento, List<IngredientesModel> ingredientes, List<ModoPreparoModel> modoPreparo) {
+			super();
+			this.id = id;
+			this.nome_receita = nome_receita;
+			this.tempo_preparo = tempo_preparo;
+			this.categoria = categoria;
+			this.nome_chef = nome_chef;
+			this.rendimento = rendimento;
+			this.ingredientes = ingredientes;
+			this.modoPreparo = modoPreparo;
+	}
+
 	//GETTERS AND SETTERS
 	public UUID getId() {
 		return id;
