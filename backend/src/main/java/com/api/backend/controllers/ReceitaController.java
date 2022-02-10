@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.api.backend.dto.ReceitaDto;
 import com.api.backend.model.ReceitaModel;
 import com.api.backend.services.ReceitaService;
@@ -99,5 +100,5 @@ public class ReceitaController {
 		receitaModel.setId(receitaModelOptional.get().getId());
 		return ResponseEntity.status(HttpStatus.OK).body(receitaService.save(receitaModel));
 	}
-	
+
 }
