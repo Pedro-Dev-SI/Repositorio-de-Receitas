@@ -1,5 +1,8 @@
 package com.api.backend.services;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -28,5 +31,16 @@ public class ReceitaService {
 	//MÉTODO QUE RETORNA TODAS AS RECEITAS CADASTRADAS
 	public Page<ReceitaModel> findAll(Pageable pageable) {
 		return receitaRepository.findAll(pageable);
+	}
+	
+	//MÉTODO QUE RETORNA APENAS UMA RECEITA POR ID
+	public Optional<ReceitaModel> findById(UUID id) {
+		return receitaRepository.findById(id);
+	}
+	
+	//MÉTODO QUE DELETA UMA RECEITA
+	@Transactional
+	public void delete(ReceitaModel receitaModel) {
+		receitaRepository.delete(receitaModel);
 	}
 }
