@@ -32,7 +32,7 @@ import com.api.backend.services.ReceitaService;
 public class ReceitaController {
 	
 	//Ponto de injeção entre o o controller e service
-	final ReceitaService receitaService;
+	private ReceitaService receitaService;
 	
 	public ReceitaController(ReceitaService receitaService) {
 		this.receitaService = receitaService;
@@ -41,8 +41,6 @@ public class ReceitaController {
 	//MÉTODO POST
 	@PostMapping
 	public ResponseEntity<Object> saveReceita(@RequestBody @Valid ReceitaModel receitaModel){
-		
-		/*Aqui abaixo é uma conversão de DTO para model, pois quando o usuario envia valores ele está enviando um DTO e não um model*/
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(receitaService.save(receitaModel));
 		

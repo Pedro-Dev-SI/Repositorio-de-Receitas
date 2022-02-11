@@ -3,7 +3,6 @@ package com.api.backend.controllers;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,7 @@ public class IngredientesController {
 		
 		//MÉTODO POST
 		@PostMapping
-		public ResponseEntity<Object> saveIngredientes(@RequestBody @Valid IngredientesModel ingredientesModel){
+		public ResponseEntity<Object> saveIngredientes(@RequestBody IngredientesModel ingredientesModel){
 				
 				return ResponseEntity.status(HttpStatus.CREATED).body(ingredientesService.save(ingredientesModel));
 		}
