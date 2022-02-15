@@ -1,16 +1,12 @@
 package com.api.backend.model;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,14 +29,10 @@ public class ReceitaModel implements Serializable {
 	private String nome_chef;
 	@Column(nullable = false, length = 70)
 	private String rendimento; //drpodown com campo de texto
-	
-	//Usei o CascadeType.ALL pelo motivo de quando eu salvar a receita vai salvar o modo de preparo e os ingredientes
-	//do mesmo modo quando eu apagar uma receita
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receitaModel")
-	private List<IngredientesModel> ingredientes = new ArrayList<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receitaModel")
-	private List<ModoPreparoModel> modoPreparo;
+	@Column(nullable = false, length = 8000)
+	private String ingredientes;
+	@Column(nullable = false, length = 8000)
+	private String modo_de_preparo;
 	
 	
 	public ReceitaModel() {
@@ -48,7 +40,7 @@ public class ReceitaModel implements Serializable {
 	}
 	
 	public ReceitaModel(UUID id, String nome_receita, String tempo_preparo, String categoria, String nome_chef,
-			String rendimento, List<IngredientesModel> ingredientes, List<ModoPreparoModel> modoPreparo) {
+			String rendimento ) {
 			super();
 			this.id = id;
 			this.nome_receita = nome_receita;
@@ -56,8 +48,6 @@ public class ReceitaModel implements Serializable {
 			this.categoria = categoria;
 			this.nome_chef = nome_chef;
 			this.rendimento = rendimento;
-			this.ingredientes = ingredientes;
-			this.modoPreparo = modoPreparo;
 	}
 
 	//GETTERS AND SETTERS
@@ -109,20 +99,20 @@ public class ReceitaModel implements Serializable {
 		this.rendimento = rendimento;
 	}
 
-	public List<IngredientesModel> getIngredientes() {
+	public String getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(List<IngredientesModel> ingredientes) {
+	public void setIngredientes(String ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 
-	public List<ModoPreparoModel> getModoPreparo() {
-		return modoPreparo;
+	public String getModo_de_preparo() {
+		return modo_de_preparo;
 	}
 
-	public void setModoPreparo(List<ModoPreparoModel> modoPreparo) {
-		this.modoPreparo = modoPreparo;
+	public void setModo_de_preparo(String modo_de_preparo) {
+		this.modo_de_preparo = modo_de_preparo;
 	}
 
 	public static long getSerialversionuid() {
