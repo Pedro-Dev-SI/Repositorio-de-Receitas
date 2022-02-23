@@ -5,11 +5,16 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import com.api.backend.exceptions.EmailExistsException;
+import com.api.backend.exceptions.UserNotFoundException;
 import com.api.backend.model.UsuarioModel;
 import com.api.backend.repository.UsuarioRepository;
+import com.api.backend.util.Util;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,24 +29,67 @@ public class UsuarioService {
 
    //MÉTODO PARA SALVAR UM USUÁRIO NO BANCO DE DADOS
    @Transactional
-   public UsuarioModel save(UsuarioModel usuarioModel){
-      return usuarioRepository.save(usuarioModel);
+   public ResponseEntity<Object> save(UsuarioModel usuarioModel) throws Exception{
+
+      Optional<UsuarioModel> usuarioModelOptional = usuarioRepository.findByEmailContains(usuarioModel.getEmail());
+
+      try {
+         if(usuarioModelOptional.isPresent()) {
+            throw new EmailExistsException("Email já cadastrado no sistema");
+         }
+
+         usuarioModel.setSenha(Util.md5(usuarioModel.getSenha()));
+
+      } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+      }
+
+      return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuarioModel)) ;
+
    }
 
    //MÉTODO QUE RETORNA TODOS OS USUÁRIOS CADASTRADOS
-   public Page<UsuarioModel> findAll(Pageable pageable) {
-      return usuarioRepository.findAll(pageable);
+   public ResponseEntity<Page<UsuarioModel>> findAll(Pageable pageable) {
+      return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.findAll(pageable));
    }
 
    //MÉTODO QUE RETORNA APENAS UM USUÁRIO POR ID
-   public Optional<UsuarioModel> findById(UUID id) {
-      return usuarioRepository.findById(id);
+
+   public ResponseEntity<Object> findById(UUID id) {
+
+      Optional<UsuarioModel> usuarioModelOptional = usuarioRepository.findById(id);
+
+      try {
+         if (!usuarioModelOptional.isPresent()){
+            throw new UserNotFoundException("Usuário não encontrado");
+         }
+
+         return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.findById(id));
+
+      } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+      }
+
    }
 
    //MÉTODO QUE DELETA UM USUÁRIO
    @Transactional
-   public void delete(UsuarioModel usuarioModel) {
-      usuarioRepository.delete(usuarioModel);
+   public ResponseEntity<Object> delete(UUID id) {
+      Optional<UsuarioModel> usuarioModelOptional = usuarioRepository.findById(id);
+
+      try {
+         if (!usuarioModelOptional.isPresent()){
+            throw new UserNotFoundException("Usuário não encontrado");
+         }
+
+         usuarioRepository.delete(usuarioModelOptional.get());
+
+         return ResponseEntity.status(HttpStatus.OK).body("Usuário deletado com sucesso");
+         
+
+      } catch (Exception e) {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+      }
    }
 
    //MÉTODO QUE RETORNA UM USUÁRIO POR EMAIL
