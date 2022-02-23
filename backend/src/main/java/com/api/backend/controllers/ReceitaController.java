@@ -32,7 +32,7 @@ import com.api.backend.services.ReceitaService;
 public class ReceitaController {
 	
 	//Ponto de injeção entre o o controller e service
-	private ReceitaService receitaService;
+	final ReceitaService receitaService;
 	
 	public ReceitaController(ReceitaService receitaService) {
 		this.receitaService = receitaService;

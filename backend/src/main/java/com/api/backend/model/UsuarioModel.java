@@ -24,8 +24,6 @@ public class UsuarioModel implements Serializable {
    private String primeiro_nome;
    @Column(nullable = false, length = 150)
    private String ultimo_nome;
-   @Column(nullable = false, length = 150)
-   private String nome_usuario;
    @Column(nullable = false, length = 254)
    private String email;
    @Column(nullable = false, length = 254)
@@ -34,13 +32,12 @@ public class UsuarioModel implements Serializable {
    public UsuarioModel() {
    }
 
-   public UsuarioModel(UUID id, String primeiro_nome, String ultimo_nome, String nome_usuario, String email,
+   public UsuarioModel(UUID id, String primeiro_nome, String ultimo_nome, String email,
          String senha) {
       super();
       this.id = id;
       this.primeiro_nome = primeiro_nome;
       this.ultimo_nome = ultimo_nome;
-      this.nome_usuario = nome_usuario;
       this.email = email;
       this.senha = senha;
    }
@@ -68,14 +65,6 @@ public class UsuarioModel implements Serializable {
 
    public void setUltimo_nome(String ultimo_nome){
       this.ultimo_nome = ultimo_nome;
-   }
-
-   public String getNome_usuario(){
-      return nome_usuario;
-   }
-
-   public void setNome_usuario(String nome_usuario){
-      this.nome_usuario = nome_usuario;
    }
 
    public String getEmail(){
