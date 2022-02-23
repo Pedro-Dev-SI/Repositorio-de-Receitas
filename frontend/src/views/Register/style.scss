@@ -1,0 +1,107 @@
+@import '@/assets/scss/_main';
+
+.main{
+
+   height: 100vh;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
+   .bg-effect{
+      position: absolute;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+   }
+
+   .login{
+
+      height: 600px;
+      width: 780px;
+      display: flex;
+      padding: 20px;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(255, 170, 86, 0.5);
+      border-radius: 5%;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+
+      .logo{
+         width: 250px;
+      }
+
+      form{
+         width: 100%;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         margin-top: 35px;
+
+         label{
+            width: 55%;
+         }
+         
+         input{
+            width: 55%;
+            margin-bottom: 20px;
+            margin-top: 5px;
+            height: 40px;
+            border: none;
+            border-radius: 3px;
+            outline: none;
+            font-size: 18px;
+            color: rgb(151, 151, 151);
+            padding: 0px 3px;
+         }
+
+         button{
+            width: 57%;
+            height: 40px;
+            border: none;
+            border-radius: 3px;
+            background-color: $mainorange;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+         }         
+         button:hover{
+            background-color: #f86d0a;
+         }
+
+         .cancel-btn{
+            width: 57%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            border: 3px solid $mainorange;
+            border-radius: 3px;
+            color: #f86d0a;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+         }
+
+      }
+
+      .links{
+         margin-top: 40px;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+
+         a{
+            margin-top: 10px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+         }
+      }
+      
+
+   }
+}
