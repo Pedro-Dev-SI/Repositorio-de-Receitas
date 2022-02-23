@@ -1,6 +1,5 @@
 package com.api.backend.services;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,7 +45,7 @@ public class UsuarioService {
    }
 
    //MÉTODO QUE RETORNA UM USUÁRIO POR EMAIL
-   public List<UsuarioModel> findUserByEmail(@RequestParam("email") String email){
+   public Optional<UsuarioModel> findUserByEmail(@RequestParam("email") String email){
 
       return this.usuarioRepository.findByEmailContains(email);
    }

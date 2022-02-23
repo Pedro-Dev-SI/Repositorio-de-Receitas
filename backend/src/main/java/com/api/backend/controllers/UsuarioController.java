@@ -1,6 +1,5 @@
 package com.api.backend.controllers;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,13 +35,27 @@ public class UsuarioController {
 
    //GET ONE BY EMAIL
    @GetMapping("/filter")
-   public List<UsuarioModel> findUserByEmail(String email){
-      return usuarioService.findUserByEmail(email);
+   public ResponseEntity<Object> findUserByEmail(@PathVariable(value="email") String email){
+
+      Optional<UsuarioModel> usuarioModelOptional = usuarioService.findUserByEmail(email);
+
+      if(!usuarioModelOptional.isPresent()) {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
+      }
+
+      return ResponseEntity.status(HttpStatus.OK).body(usuarioModelOptional.get());
    }
 
    //MÉTODO POST
    @PostMapping
    public ResponseEntity<Object> saveUsuario(@RequestBody UsuarioModel usuarioModel){
+
+      Optional<UsuarioModel> usuarioModelOptional = usuarioService.findUserByEmail(usuarioModel.getEmail());
+
+      if(usuarioModelOptional.isPresent()) {
+         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email já cadastrado no sistema");
+      }
+
       return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuarioModel));
    }
 
