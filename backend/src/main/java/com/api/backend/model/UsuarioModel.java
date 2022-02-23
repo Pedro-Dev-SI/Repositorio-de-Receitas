@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "TB_USUARIO")
@@ -24,6 +25,7 @@ public class UsuarioModel implements Serializable {
    private String primeiro_nome;
    @Column(nullable = false, length = 150)
    private String ultimo_nome;
+   @Email
    @Column(nullable = false, length = 254)
    private String email;
    @Column(nullable = false, length = 254)
@@ -77,6 +79,10 @@ public class UsuarioModel implements Serializable {
 
    public String getSenha(){
       return senha;
+   }
+
+   public void setSenha(String senha){
+      this.senha = senha;
    }
 
 }
