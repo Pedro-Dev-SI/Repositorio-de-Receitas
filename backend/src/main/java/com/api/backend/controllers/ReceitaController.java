@@ -34,8 +34,7 @@ public class ReceitaController {
 	}
 	
 	//MÉTODO POST
-	@RequestMapping("/new-recipe")
-	@PostMapping
+	@PostMapping("/new-recipe")
 	public ResponseEntity<Object> saveReceita(@RequestBody ReceitaModel receitaModel){
 		
 		return receitaService.save(receitaModel);
@@ -64,7 +63,7 @@ public class ReceitaController {
 	}
 	
 	//MÉTODO UPDATE
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<Object> updateReceita(@PathVariable(value="id") UUID id, 
 			@RequestBody ReceitaModel receitaModel){
 		

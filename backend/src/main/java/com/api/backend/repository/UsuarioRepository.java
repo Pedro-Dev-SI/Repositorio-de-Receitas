@@ -12,5 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, UUID>{
 
    Optional<UsuarioModel> findByEmailContains(String email);
+
+   UsuarioModel findByEmail(String email);
+
    
 }

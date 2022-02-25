@@ -31,7 +31,7 @@ public class UsuarioController {
    }
 
    //MÉTODO POST
-   @PostMapping
+   @PostMapping("/new-user")
    public ResponseEntity<Object> salvarUsuario(@RequestBody UsuarioModel usuarioModel) throws Exception{
 
       return usuarioService.save(usuarioModel);

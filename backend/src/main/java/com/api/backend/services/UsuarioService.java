@@ -38,8 +38,6 @@ public class UsuarioService {
             throw new EmailExistsException("Email já cadastrado no sistema");
          }
 
-         usuarioModel.setSenha(Util.md5(usuarioModel.getSenha()));
-
       } catch (Exception e) {
          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
       }
