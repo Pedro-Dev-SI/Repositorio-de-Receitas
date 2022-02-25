@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "TB_USUARIO")
 public class UsuarioModel implements Serializable {
@@ -44,45 +49,5 @@ public class UsuarioModel implements Serializable {
       this.senha = senha;
    }
 
-   // GETTERS AND SETTERS
-   public UUID getId() {
-      return id;
-   }
-
-   public void setId(UUID id) {
-      this.id = id;
-   }
-
-   public String getPrimeiro_nome() {
-      return primeiro_nome;
-   }
-
-   public void setPrimeiro_nome(String primeiro_nome) {
-      this.primeiro_nome = primeiro_nome;
-   }
-
-   public String getUltimo_nome() {
-      return ultimo_nome;
-   }
-
-   public void setUltimo_nome(String ultimo_nome){
-      this.ultimo_nome = ultimo_nome;
-   }
-
-   public String getEmail(){
-      return email;
-   }
-
-   public void setEmail(String email){
-      this.email = email;
-   }
-
-   public String getSenha(){
-      return senha;
-   }
-
-   public void setSenha(String senha){
-      this.senha = senha;
-   }
-
+   
 }
