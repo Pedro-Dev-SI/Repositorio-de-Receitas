@@ -1,16 +1,64 @@
 <template>
   <div>
-     <h1>Home Page</h1>
+
+    <NavBar/>
+    
+    <div class="main">
+      
+      <div class="up-div">
+
+        <div class="search-recipe">
+          <h1>Receitas</h1>
+          <hr>
+          <input class="search-input" type="text" placeholder="Buscar por...">
+          <button class="search-btn"><img class="search-icon" src="@/assets/search.svg">Pesquisar</button>
+        </div>
+
+        <a class="add-recipe-btn"><strong class="plus-sign">+</strong> Cadastrar receita</a>
+
+      </div>
+
+      <table class="table table-striped table-hover recipe-table">
+        <thead>
+          <tr>
+            <th>Nome da receita</th>
+            <th>Tempo de Preparo</th>
+            <th>Categoria</th>
+            <th>Chef</th>
+            <th>Rendimento</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bolo de cenoura</td>
+            <td>40 minutos</td>
+            <td>Doce, Sobremesa</td>
+            <td>John Taylor</td>
+            <td>8 porções</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+
   </div>
   
 </template>
 
 <script>
+
+import NavBar from '@/components/NavBar/NavBar.vue'
 export default {
+  name: 'Home',
+
+  components: {
+    NavBar,
+  },
 
 }
 </script>
 
-<style>
-
-</style>
+<style scoped lang="scss" src="./style.scss"/>

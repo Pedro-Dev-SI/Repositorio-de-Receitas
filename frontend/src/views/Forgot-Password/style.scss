@@ -1,12 +1,10 @@
 @import '@/assets/scss/_main';
 
 .main{
-
    height: 100vh;
    width: 100%;
    display: flex;
    flex-direction: column;
-   justify-content: center;
    align-items: center;
 
    .bg-effect{
@@ -17,20 +15,24 @@
       z-index: -1;
    }
 
-   .register{
+   .container{
 
-      max-height: 780px;
-      width: 780px;
+      width: 450px;
+      margin-top: 80px;
       display: flex;
-      padding: 20px;
       flex-direction: column;
       align-items: center;
-      background-color: rgba(255, 170, 86, 0.5);
-      border-radius: 5%;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 
       .logo{
          width: 250px;
+      }
+
+      h2{
+         margin-top: 70px;
+      }
+
+      .text{
+         margin-top: 50px;
       }
 
       form{
@@ -38,18 +40,18 @@
          display: flex;
          flex-direction: column;
          align-items: center;
-         margin-top: 35px;
+         margin-top: 50px;
 
          label{
-            width: 55%;
+            width: 100%;
          }
-         
+
          input{
-            width: 55%;
+            width: 100%;
             margin-bottom: 20px;
             margin-top: 5px;
-            height: 40px;
-            border: none;
+            height: 45px;
+            border: 0.5px solid rgb(192, 192, 192);
             border-radius: 3px;
             outline: none;
             font-size: 18px;
@@ -58,49 +60,39 @@
          }
 
          button{
-            width: 410px;
-            height: 40px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 57%;
+            height: 55px;
             border: none;
             border-radius: 3px;
             background-color: $mainorange;
             color: #fff;
             cursor: pointer;
             font-size: 18px;
-         }         
+         }
          button:hover{
             background-color: #f86d0a;
          }
-
-         .cancel-btn{
-            width: 415px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            border: 3px solid $mainorange;
-            border-radius: 3px;
-            color: #f86d0a;
-            text-decoration: none;
-            font-weight: bold;
-         }
-
       }
 
-      .links{
-         margin-top: 40px;
+      a{
          display: flex;
-         flex-direction: column;
          align-items: center;
+         margin-top: 50px;
+         color: rgb(43, 43, 43);
+         text-decoration: none;
+         font-size: 18px;
 
-         a{
-            margin-top: 10px;
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
+         img{
+            width: 30px;
+            margin-right: 10px;
          }
-      }
-      
 
+      }
+
+      
    }
 }
