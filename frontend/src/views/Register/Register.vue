@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <img class="bg-effect" src="@/assets/fundo.png">
-    <div class="login">
+    <div class="register">
       <img class="logo" src="@/assets/logo_gtchef.png" alt="Logo da GTchef">
       <form @submit.prevent="handleSubmit">
          
@@ -21,7 +21,7 @@
          <input type="password" v-model="confirmar_senha">
 
         <button>Cadastrar</button>
-        <a href="#" class="cancel-btn">Cancelar</a>
+        <router-link to="/"><a href="#" class="cancel-btn">Cancelar</a></router-link>
       </form>
 
     </div>
@@ -46,9 +46,7 @@ export default {
   },
 
   methods: {
-    handleSubmit() {
-
-      const URL_API = "http://localhost:8080/api/v1/new-user";
+    async handleSubmit() {
 
       const data = {
         primeiro_nome: this.primeiro_nome,
@@ -58,7 +56,9 @@ export default {
         confirmar_senha: this.confirmar_senha,
       }
 
-      axios.post(URL_API, data)
+      await axios.post('new-user', data);
+      
+      this.$router.push('/');
 
     }
   }
