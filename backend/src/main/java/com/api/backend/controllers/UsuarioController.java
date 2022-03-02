@@ -56,6 +56,13 @@ public class UsuarioController {
    public ResponseEntity<Object> deletarUsuario(@PathVariable(value="id") UUID id){
 
       return usuarioService.delete(id);
-   }   
+   }
+   
+   // //MÉTODO DE LOGIN
+   // @PostMapping("/login")
+   // public ResponseEntity<Object> login(@RequestBody UsuarioModel usuarioModel){
+      
+   //    return usuarioService.login(usuarioModel);
+   // }
 
 }

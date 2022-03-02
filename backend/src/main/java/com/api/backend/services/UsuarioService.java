@@ -38,6 +38,8 @@ public class UsuarioService {
             throw new EmailExistsException("Email já cadastrado no sistema");
          }
 
+         usuarioModel.setSenha(Util.md5(usuarioModel.getSenha()));
+
       } catch (Exception e) {
          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
       }
@@ -95,6 +97,28 @@ public class UsuarioService {
 
       return this.usuarioRepository.findByEmailContains(email);
    }
+
+   // public ResponseEntity<Object> login(UsuarioModel usuarioModel) {
+      
+
+   //    try {
+   //       usuarioModel.setSenha(Util.md5(usuarioModel.getSenha()));
+
+   //       Optional<UsuarioModel> usuarioModelOptional = usuarioRepository
+   //       .findByEmailAndPasswordContains(usuarioModel.getEmail(), usuarioModel.getPassword());
+
+   //       if(!usuarioModelOptional.isPresent()) {
+   //          throw new EmailExistsException("Dados inválidos");
+   //       }
+
+         
+
+   //    } catch (Exception e) {
+   //       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+   //    }
+
+   //    return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuarioModel)) ;
+   // }
 
    
 }
