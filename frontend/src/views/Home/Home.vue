@@ -18,30 +18,95 @@
 
       </div>
 
-      <table class="table table-striped table-hover recipe-table">
-        <thead>
-          <tr>
-            <th>Nome da receita</th>
-            <th>Tempo de Preparo</th>
-            <th>Categoria</th>
-            <th>Chef</th>
-            <th>Rendimento</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Bolo de cenoura</td>
-            <td>40 minutos</td>
-            <td>Doce, Sobremesa</td>
-            <td>John Taylor</td>
-            <td>8 porções</td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-section">
 
+        <table class="table table-striped table-hover recipe-table">
+          <thead>
+            <tr>
+              <th>Nome da receita</th>
+              <th>Tempo de Preparo</th>
+              <th>Categoria</th>
+              <th>Chef</th>
+              <th>Rendimento</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+      
+            <tr>
+              <td>Bolo de cenoura</td>
+              <td>40 minutos</td>
+              <td>Doce, Sobremesa</td>
+              <td>John Taylor</td>
+              <td>8 porções</td>
+              <td>
+                <div class="dropdown">
+                  <button class="dropbtn">Ações</button>
+                  <div class="dropdown-content">
+                    <a href="#"><img class="select-icon" src="@/assets/eye.svg">Visualizar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/edit.svg">Editar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
 
+            <tr>
+              <td>Bolo de cenoura</td>
+              <td>40 minutos</td>
+              <td>Doce, Sobremesa</td>
+              <td>John Taylor</td>
+              <td>8 porções</td>
+              <td>
+                <div class="dropdown">
+                  <button class="dropbtn">Ações</button>
+                  <div class="dropdown-content">
+                    <a href="#"><img class="select-icon" src="@/assets/eye.svg">Visualizar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/edit.svg">Editar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Bolo de cenoura</td>
+              <td>40 minutos</td>
+              <td>Doce, Sobremesa</td>
+              <td>John Taylor</td>
+              <td>8 porções</td>
+              <td>
+                <div class="dropdown">
+                  <button class="dropbtn">Ações</button>
+                  <div class="dropdown-content">
+                    <a href="#"><img class="select-icon" src="@/assets/eye.svg">Visualizar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/edit.svg">Editar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Bolo de cenoura</td>
+              <td>40 minutos</td>
+              <td>Doce, Sobremesa</td>
+              <td>John Taylor</td>
+              <td>8 porções</td>
+              <td>
+                <div class="dropdown">
+                  <button class="dropbtn">Ações</button>
+                  <div class="dropdown-content">
+                    <a href="#"><img class="select-icon" src="@/assets/eye.svg">Visualizar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/edit.svg">Editar</a>
+                    <a href="#"><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>

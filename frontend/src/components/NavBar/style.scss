@@ -15,7 +15,10 @@ nav{
       margin-right: 40px;
 
       hr{
-         height: 100%;
+         -webkit-transform:rotate(90deg);
+         width:100px;
+         left:130px;
+         border:2px;
       }
 
       .circle{
