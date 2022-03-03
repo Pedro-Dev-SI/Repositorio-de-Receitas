@@ -17,6 +17,11 @@
 
          margin-right: 55rem;
 
+         h1{
+            font-size: 45px;
+            color: rgb(19, 19, 19);
+         }
+
          hr{
             width: 70%;
             border: 1px solid $mainorange;
@@ -76,8 +81,83 @@
       
    }
 
-   .recipe-table{
+   .table-section{
 
+      display: flex;
+      justify-content: center;
+
+      .recipe-table{
+
+         width: 90%;
+
+         tr:nth-child(odd) {
+            background-color: $lightorange;
+         }
+        
+         tr:nth-child(even) {
+            background-color: #fff;
+         }
+        
+         th {
+            background-color: #fff;
+         }
+   
+         .dropbtn {
+            height: 35px;
+            width: 90px;
+            border-radius: 3px;
+            background-color: $mainorange;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+         }
+          
+          /* The container <div> - needed to position the dropdown content */
+         .dropdown {
+            position: relative;
+            display: inline-block;
+         }
+          
+          /* Dropdown Content (Hidden by Default) */
+         .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+
+            .select-icon{
+               width: 20px;
+               margin-right: 5px;
+            }
+
+          }
+          
+          /* Links inside the dropdown */
+         .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+          }
+          
+          /* Change color of dropdown links on hover */
+         .dropdown-content a:hover {background-color: #f1f1f1}
+          
+          /* Show the dropdown menu on hover */
+         .dropdown:hover .dropdown-content {
+            display: block;
+         }
+          
+          /* Change the background color of the dropdown button when the dropdown content is shown */
+         .dropdown:hover .dropbtn {
+            background-color: rgb(255, 111, 8);
+         }
+      }
    }
+
+   
 
 }
