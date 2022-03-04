@@ -38,7 +38,7 @@
                   <label>Categorias: </label><br>
                   <div class="checkboxes">
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Salgado" id="flexCheckDefault" v-model="this.recipe.categories" @change="addCategory">
+                        <input class="form-check-input" type="checkbox" value="Salgado" id="salgado" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Salgado
                         </label>
@@ -130,7 +130,7 @@
             <form class="form-ingredients">
                <div class="form-ingredients-group">
                   <label>Nome do Ingrediente: </label><br>
-                  <input type="text" class="ingredient-name-input" required v-model="this.newIngredient.name">
+                  <input type="text" class="ingredient-name-input" required v-model="this.newIngredient.ingredient_name">
                </div>
                <div class="form-ingredients-group amount-div">
                   <label>Quantidade: </label><br>
@@ -161,7 +161,7 @@
                <tbody>
             
                   <tr v-for="(ingredient, index) in this.ingredients" :key="index">
-                     <td>{{ingredient.name}}</td>
+                     <td>{{ingredient.ingredient_name}}</td>
                      <td>{{ingredient.amount + ingredient.amountUnit}}</td>
                      <td><a @click.prevent="removeIngredient(index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
                   </tr>
@@ -199,7 +199,7 @@ export default {
             prepareTime: '',
             yieldDescription: '',
             yieldUnit: '',
-            categories: '',
+            categories: [],
             ingredients: '',
             instructions: '',
          },
@@ -217,7 +217,8 @@ export default {
 
    methods: {
       addIngredient(){
-         this.ingredients.push(this.newIngredient)
+
+         this.ingredients.push(this.newIngredient);
          this.newIngredient = {}
       },
 
@@ -241,15 +242,16 @@ export default {
 
       handleSubmit(){
 
-         let ingredientsStr = this.ingredients.join(" | ")
-         let instructionsStr = this.instructions.join(" | ")
+         let ingredientsStr = JSON.stringify(this.ingredients);
+         let instructionsStr =   JSON.stringify(this.instructions);
+         let categoriesStr = this.recipe.categories.join(" | ")
 
          const data = {
-            name: this.name,
-            prepareTime: this.prepareTime,
-            yieldDescription: this.yield,
-            yieldUnit: this.yield_unit,
-            categories: this.categories,
+            name: this.recipe.name,
+            prepareTime: this.recipe.prepareTime,
+            yieldDescription: this.recipe.yieldDescription,
+            yieldUnit: this.recipe.yieldUnit,
+            categories: categoriesStr,
             ingredients: ingredientsStr,
             instructions: instructionsStr,
          }
@@ -258,6 +260,9 @@ export default {
       }
 
    },
+
+
+
 }
 </script>
 
