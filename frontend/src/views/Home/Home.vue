@@ -14,7 +14,7 @@
           <button class="search-btn"><img class="search-icon" src="@/assets/search.svg">Pesquisar</button>
         </div>
 
-        <a class="add-recipe-btn"><strong class="plus-sign">+</strong> Cadastrar receita</a>
+        <router-link to="/new-recipe"><a class="add-recipe-btn"><strong class="plus-sign">+</strong> Cadastrar receita</a></router-link>
 
       </div>
 

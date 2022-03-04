@@ -10,21 +10,21 @@
             <form class="recipe-form">
                <div class="recipe-group-form">
                   <label>Nome da Receita: </label>
-                  <input type="text" class="recipe-name-input">
+                  <input type="text" class="recipe-name-input" required v-model="this.recipe.name">
                </div>
                
                <div class="recipe-group-form form-group-time-yield">
                   
                   <div class="time-prepare-section">
                      <label>Tempo de preparo: </label>
-                     <input type="text" class="prepare-time-input">
+                     <input type="text" class="prepare-time-input" required v-model="this.recipe.prepareTime">
                   </div>
 
                   <div class="yield-section">
                      <label>Rendimento: </label>
                      <div>
-                        <input type="text" class="yield-input">
-                        <select class="form-select" aria-label="Default select example">
+                        <input type="text" class="yield-input" required v-model="this.recipe.yieldDescription">
+                        <select class="form-select" aria-label="Default select example" required v-model="this.recipe.yieldUnit">
                            <option selected>unidade(s)</option>
                            <option value="Porção">Porção</option>
                            <option value="Unidades">Unidade(s)</option>
@@ -38,56 +38,56 @@
                   <label>Categorias: </label><br>
                   <div class="checkboxes">
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Salgado" id="flexCheckDefault" v-model="this.recipe.categories" @change="addCategory">
                         <label class="form-check-label" for="flexCheckDefault">
                            Salgado
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Doce" id="flexCheckDefault" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Doce
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Vegano" id="flexCheckDefault" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Vegano
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Salada" id="flexCheckDefault" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Salada
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Almoço" id="flexCheckDefault" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Almoço
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Sobremesa" id="flexCheckDefault" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Sobremesa
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Fit" id="flexCheckDefault" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Fit
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="Jantar" id="flexCheckDefault" v-model="this.recipe.categories">
                         <label class="form-check-label" for="flexCheckDefault">
                            Jantar
                         </label>
@@ -102,8 +102,8 @@
             <h2>Modo de preparo</h2>
             <form class="form-prepare-method">
                <label>Passo: </label><br>
-               <input type="text" class="prepare-step-input">
-               <button class="add-btn"><strong>+</strong>Adicionar</button>
+               <input type="text" class="prepare-step-input" required v-model="this.newInstruction.step">
+               <button class="add-btn" @click.prevent="addInstruction"><strong>+</strong>Adicionar</button>
             </form>
 
             <table class="table table-striped table-hover prepare-method-table">
@@ -115,20 +115,11 @@
                </thead>
                <tbody>
             
-                  <tr>
-                  <td>1 Pré aquecer o forno</td>
-                  <td><a><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
+                  <tr v-for="(instruction, index) in instructions" :key="index">
+                     <td>{{instruction.step}}</td>
+                     <td><a @click.prevent="removeInstruction(index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
                   </tr>
 
-                  <tr>
-                  <td>2 Colocar para assar</td>
-                  <td><a><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
-                  </tr>
-
-                  <tr>
-                  <td>3 Cozinhar o arroz</td>
-                  <td><a><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
-                  </tr>
                </tbody>
             </table>
          </div>
@@ -139,13 +130,13 @@
             <form class="form-ingredients">
                <div class="form-ingredients-group">
                   <label>Nome do Ingrediente: </label><br>
-                  <input type="text" class="ingredient-name-input">
+                  <input type="text" class="ingredient-name-input" required v-model="this.newIngredient.name">
                </div>
                <div class="form-ingredients-group amount-div">
                   <label>Quantidade: </label><br>
                   <div class="flex">
-                     <input type="text" class="amount-input">
-                     <select class="form-select" aria-label="Default select example">
+                     <input type="text" class="amount-input" required  v-model="this.newIngredient.amount">
+                     <select class="form-select" aria-label="Default select example" required  v-model="this.newIngredient.amountUnit">
                         <option selected>unidade(s)</option>
                         <option value="g">gramas</option>
                         <option value="kg">quilo</option>
@@ -154,7 +145,7 @@
                         <option value="xícara">xícara</option>
                         <option value="un">unidade</option>
                      </select>
-                     <button class="add-btn"><strong>+</strong>Adicionar</button>
+                     <button class="add-btn" @click.prevent="addIngredient"><strong>+</strong>Adicionar</button>
                   </div>
                </div>
             </form>
@@ -169,23 +160,12 @@
                </thead>
                <tbody>
             
-                  <tr>
-                  <td>Arroz</td>
-                  <td>500g</td>
-                  <td><a><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
+                  <tr v-for="(ingredient, index) in this.ingredients" :key="index">
+                     <td>{{ingredient.name}}</td>
+                     <td>{{ingredient.amount + ingredient.amountUnit}}</td>
+                     <td><a @click.prevent="removeIngredient(index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
                   </tr>
 
-                  <tr>
-                  <td>Leite</td>
-                  <td>3l</td>
-                  <td><a><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
-                  </tr>
-
-                  <tr>
-                  <td>Ovos</td>
-                  <td>12un</td>
-                  <td><a><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
-                  </tr>
                </tbody>
             </table>
 
@@ -193,8 +173,8 @@
       </div>
 
       <div class="buttons">
-         <button class="cancel-btn">Cancelar</button>
-         <button class="save-btn"><strong>+</strong>Cadastrar</button>
+         <router-link to="/home"><button class="cancel-btn">Cancelar</button></router-link>
+         <button class="save-btn" @click.prevent="handleSubmit"><strong>+</strong>Cadastrar</button>
       </div>
 
    </div>
@@ -203,11 +183,80 @@
 <script>
 import NavBar from '@/components/NavBar/NavBar.vue'
 
+
 export default {
+
    name: 'NewRecipe',
 
    components: {
       NavBar
+   },
+
+   data(){
+      return{
+         recipe:{
+            name: '',
+            prepareTime: '',
+            yieldDescription: '',
+            yieldUnit: '',
+            categories: '',
+            ingredients: '',
+            instructions: '',
+         },
+
+         ingredients: [],
+         newIngredient:{},
+
+         instructions: [],
+         newInstruction:{},
+
+
+
+      }
+   },
+
+   methods: {
+      addIngredient(){
+         this.ingredients.push(this.newIngredient)
+         this.newIngredient = {}
+      },
+
+      removeIngredient(index){
+         this.ingredients.splice(index, 1)
+      },
+
+      addInstruction(){
+         this.instructions.push(this.newInstruction)
+         this.newInstruction = {}
+      },
+
+      removeInstruction(index){
+         this.instructions.splice(index, 1)
+      },
+
+      addCategory(event){
+         this.recipe.categories += event.target.value + ','
+         console.log(this.recipe.categories)
+      },
+
+      handleSubmit(){
+
+         let ingredientsStr = this.ingredients.join(" | ")
+         let instructionsStr = this.instructions.join(" | ")
+
+         const data = {
+            name: this.name,
+            prepareTime: this.prepareTime,
+            yieldDescription: this.yield,
+            yieldUnit: this.yield_unit,
+            categories: this.categories,
+            ingredients: ingredientsStr,
+            instructions: instructionsStr,
+         }
+
+         console.log(data)
+      }
+
    },
 }
 </script>

@@ -167,6 +167,13 @@
       display: flex;
       flex-direction: column;
 
+      h2{
+         font-size: 25px;
+         font-weight: bold;
+         color: rgb(19, 19, 19);
+         margin-top: 40px;
+      }
+
       .form-ingredients{
          display: flex;
          width: 100%;

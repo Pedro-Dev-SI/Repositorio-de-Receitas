@@ -30,7 +30,7 @@
 
 <script>
 
-import axios from "axios";
+import api from '@/services/api.js';
 
 export default {
   name: 'Register',
@@ -56,11 +56,14 @@ export default {
         confirmar_senha: this.confirmar_senha,
       }
 
-      await axios.post('new-user', data);
+      await api.post('new-user', data);
       
       this.$router.push('/');
 
     }
+
+    
+
   }
 }
 </script>
