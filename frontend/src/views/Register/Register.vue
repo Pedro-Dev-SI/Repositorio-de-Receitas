@@ -6,22 +6,24 @@
       <form @submit.prevent="handleSubmit">
          
         <label>Primeiro nome</label>
-         <input type="text" v-model="primeiro_nome">
+         <input type="text" v-model="primeiro_nome" placeholder="Primeiro nome...">
 
          <label>Último nome</label>
-         <input type="text" v-model="ultimo_nome">
+         <input type="text" v-model="ultimo_nome" placeholder="Último nome...">
 
          <label>E-mail</label>
-         <input type="email" v-model="email">
+         <input type="email" v-model="email" placeholder="exemplo@exemplo.com">
 
          <label>Senha</label>
-         <input type="password" v-model="senha">
+         <input type="password" v-model="senha" placeholder="Sua senha...">
 
          <label>Confirmar senha</label>
-         <input type="password" v-model="confirmar_senha">
+         <input type="password" v-model="confirmar_senha" placeholder="Confirme a senha...">
+
+         <p class="danger-warning" v-if="!this.valid">As senhas não coincidem</p>
 
         <button>Cadastrar</button>
-        <router-link to="/"><a href="#" class="cancel-btn">Cancelar</a></router-link>
+        <router-link style="text-decoration: none;" to="/"><a href="#" class="cancel-btn">Cancelar</a></router-link>
       </form>
 
     </div>
@@ -30,7 +32,7 @@
 
 <script>
 
-import api from '@/services/api.js';
+import User from '@/services/user.js';
 
 export default {
   name: 'Register',
@@ -42,6 +44,7 @@ export default {
       email: '',
       senha: '',
       confirmar_senha: '',
+      valid: true,
     }
   },
 
@@ -56,9 +59,18 @@ export default {
         confirmar_senha: this.confirmar_senha,
       }
 
-      await api.post('new-user', data);
-      
-      this.$router.push('/');
+      if(data.primeiro_nome == undefined || data.ultimo_nome == undefined || data.email == undefined || data.senha == undefined || data.confirmar_senha == undefined) {
+        alert('Preencha todos os campos');
+        return;
+      }else if(data.senha != data.confirmar_senha) {
+        this.valid = false;
+        return;
+      }
+
+      User.save(data).then(
+        this.$router.push('/')
+      );
+
 
     }
 
