@@ -41,7 +41,7 @@ public class ReceitaController {
 	}
 	
 	// MÉTODO GET
-	@GetMapping
+	@GetMapping("/recipies")
 	public ResponseEntity<Page<ReceitaModel>> getAllReceitas(@PageableDefault(page=0, size=10, sort="id", direction=Sort.Direction.ASC)Pageable pageable){
 
 		return receitaService.findAll(pageable);

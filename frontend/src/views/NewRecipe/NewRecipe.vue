@@ -27,8 +27,8 @@
                         <select class="form-select" aria-label="Default select example" required v-model="this.recipe.yieldUnit">
                            <option selected>unidade(s)</option>
                            <option value="Porção">Porção</option>
-                           <option value="Unidades">Unidade(s)</option>
-                           <option value="Pessoas">Pessoas</option>
+                           <option value="Unidade">Unidade(s)</option>
+                           <option value="Pessoas">Pessoa(s)</option>
                         </select>
                      </div>
                   </div>
@@ -140,9 +140,8 @@
                         <option selected>unidade(s)</option>
                         <option value="g">gramas</option>
                         <option value="kg">quilo</option>
-                        <option value="l">litro</option>
-                        <option value="colher de sopa">colher de sopa</option>
-                        <option value="xícara">xícara</option>
+                        <option value="L">litro</option>
+                        <option value="mg">miligramas</option>
                         <option value="un">unidade</option>
                      </select>
                      <button class="add-btn" @click.prevent="addIngredient"><strong>+</strong>Adicionar</button>
@@ -162,7 +161,7 @@
             
                   <tr v-for="(ingredient, index) in this.ingredients" :key="index">
                      <td>{{ingredient.ingredient_name}}</td>
-                     <td>{{ingredient.amount + ingredient.amountUnit}}</td>
+                     <td>{{ingredient.amount + ' ' + ingredient.amountUnit}}</td>
                      <td><a @click.prevent="removeIngredient(index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
                   </tr>
 
@@ -182,6 +181,7 @@
 
 <script>
 import NavBar from '@/components/NavBar/NavBar.vue'
+import Recipe from '@/services/recipies.js'
 
 
 export default {
@@ -218,8 +218,12 @@ export default {
    methods: {
       addIngredient(){
 
-         this.ingredients.push(this.newIngredient);
-         this.newIngredient = {}
+         if(this.newIngredient.ingredient_name == undefined || this.newIngredient.amount == undefined || this.newIngredient.amountUnit == undefined){
+            alert('Preencha todos os campos');
+         }else{
+            this.ingredients.push(this.newIngredient);
+            this.newIngredient = {}
+         }
       },
 
       removeIngredient(index){
@@ -227,8 +231,14 @@ export default {
       },
 
       addInstruction(){
-         this.instructions.push(this.newInstruction)
-         this.newInstruction = {}
+
+         if(this.newInstruction.step == undefined){
+            alert('Preencha todos os campos');
+         }else{
+
+            this.instructions.push(this.newInstruction)
+            this.newInstruction = {}
+         }
       },
 
       removeInstruction(index){
@@ -240,23 +250,34 @@ export default {
          console.log(this.recipe.categories)
       },
 
-      handleSubmit(){
+      async handleSubmit(){
 
          let ingredientsStr = JSON.stringify(this.ingredients);
          let instructionsStr =   JSON.stringify(this.instructions);
-         let categoriesStr = this.recipe.categories.join(" | ")
+         let categoriesStr = this.recipe.categories.join(" | ");
 
          const data = {
-            name: this.recipe.name,
-            prepareTime: this.recipe.prepareTime,
-            yieldDescription: this.recipe.yieldDescription,
-            yieldUnit: this.recipe.yieldUnit,
-            categories: categoriesStr,
-            ingredients: ingredientsStr,
-            instructions: instructionsStr,
+            categoria: categoriesStr,
+            ingredientes: ingredientsStr,
+            modo_de_preparo: instructionsStr,
+            nome_receita: this.recipe.name,
+            rendimento: this.recipe.yieldDescription + ' ' + this.recipe.yieldUnit,
+            tempo_preparo: this.recipe.prepareTime,
          }
 
-         console.log(data)
+         if(data.nome_receita == '' || data.tempo_preparo == '' || data.rendimento == '' || data.categoria == ''){
+            alert('Preencha todos os campos');
+         }else{
+
+            Recipe.save(data).then(
+               response => {
+                  console.log(response);
+                  alert('Receita cadastrada com sucesso!');
+                  this.$router.push('/home');
+               },
+            )
+         }
+         
       }
 
    },

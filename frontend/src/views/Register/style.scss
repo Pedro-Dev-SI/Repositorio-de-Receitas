@@ -19,7 +19,7 @@
 
    .register{
 
-      max-height: 780px;
+      min-height: 780px;
       width: 780px;
       display: flex;
       padding: 20px;
@@ -55,6 +55,10 @@
             font-size: 18px;
             color: rgb(151, 151, 151);
             padding: 0px 3px;
+         }
+
+         .danger-warning{
+            color: red;
          }
 
          button{
