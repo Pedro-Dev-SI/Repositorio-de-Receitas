@@ -166,6 +166,27 @@
       }
    }
 
+   .message-box{
+      
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(228, 228, 228);
+      margin: 0 70px;
+      border-radius: 10px;
+
+      img{
+         width: 350px;
+      }
+      
+      h2{
+         color: rgb(153, 153, 153);
+      }
+   }
+
+
    
 
 }

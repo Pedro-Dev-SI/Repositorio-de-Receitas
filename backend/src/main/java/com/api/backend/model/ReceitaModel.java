@@ -35,7 +35,9 @@ public class ReceitaModel implements Serializable {
 	@Column(nullable = false, length = 4000)
 	private String categoria; //checkbox
 	@Column(nullable = false, length = 70)
-	private String rendimento; //drpodown com campo de texto
+	private String rendimento_descricao;
+	@Column(nullable = false, length = 70)
+	private String rendimento_unidade; //drpodown com campo de texto
 	@Column(nullable = false, length = 8000)
 	private String ingredientes;
 	@Column(nullable = false, length = 8000)
@@ -51,13 +53,14 @@ public class ReceitaModel implements Serializable {
 	}
 	
 	public ReceitaModel(UUID id, String nome_receita, String tempo_preparo, String categoria,
-		String rendimento, String ingredientes, String modo_de_preparo, UsuarioModel usuarioModel) {
+		String rendimento_descricao, String rendimento_unidade, String ingredientes, String modo_de_preparo, UsuarioModel usuarioModel) {
 		super();
 		this.id = id;
 		this.nome_receita = nome_receita;
 		this.tempo_preparo = tempo_preparo;
 		this.categoria = categoria;
-		this.rendimento = rendimento;
+		this.rendimento_descricao = rendimento_descricao;
+		this.rendimento_unidade = rendimento_unidade;
 		this.ingredientes = ingredientes;
 		this.modo_de_preparo = modo_de_preparo;
 		this.usuarioModel = usuarioModel;

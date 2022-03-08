@@ -63,7 +63,7 @@ public class ReceitaController {
 	}
 	
 	//MÉTODO UPDATE
-	@PutMapping("/update/{id}")
+	@PutMapping("/update-recipe/{id}")
 	public ResponseEntity<Object> updateReceita(@PathVariable(value="id") UUID id, 
 			@RequestBody ReceitaModel receitaModel){
 		
