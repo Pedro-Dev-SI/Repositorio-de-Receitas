@@ -182,6 +182,7 @@
 <script>
 import NavBar from '@/components/NavBar/NavBar.vue'
 import Recipe from '@/services/recipies.js'
+import swal from 'sweetalert';
 
 
 export default {
@@ -222,9 +223,7 @@ export default {
    methods: {
       addIngredient(){
 
-         if(this.newIngredient.ingredient_name == undefined || this.newIngredient.amount == undefined || this.newIngredient.amountUnit == undefined){
-            alert('Preencha todos os campos');
-         }else{
+         if(!this.newIngredient.ingredient_name == '' || !this.newIngredient.amount == '' || !this.newIngredient.amountUnit == ''){
             this.ingredients.push(this.newIngredient);
             this.newIngredient = {}
          }
@@ -236,10 +235,7 @@ export default {
 
       addInstruction(){
 
-         if(this.newInstruction.step == undefined){
-            alert('Preencha todos os campos');
-         }else{
-
+         if(!this.newInstruction.step == ''){
             this.instructions.push(this.newInstruction)
             this.newInstruction = {}
          }
@@ -272,15 +268,13 @@ export default {
          }
 
          if(data.nome_receita == '' || data.tempo_preparo == '' || data.rendimento == '' || data.categoria == ''){
-            alert('Preencha todos os campos');
+            swal('Oops', 'Preencha todos os dados da receita', 'error');
          }else{
 
             Recipe.update(this.id, data).then(
-               response => {
-                  console.log(response);
-                  alert('Receita alterada com sucesso!');
-                  this.$router.push('/home');
-               },
+               
+               swal('Yeeeeaah', 'Receita editada com sucesso!', 'success'),
+               this.$router.push('/home'),
             )
          }
          
