@@ -1,0 +1,303 @@
+@import '@/assets/scss/_main';
+
+.main{
+
+   height: 100vh;
+   width: 100%;
+
+   h1{
+      font-size: 45px;
+      color: rgb(19, 19, 19);
+      margin-top: 40px;
+      margin-left: 20px;
+   }
+   hr{
+      width: 25%;
+      margin-left: 20px;
+      border: 1px solid $mainorange;
+      box-shadow: 0px 1px 3px rgb(196, 108, 46);
+   }
+   .row{
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      /*Recipe Info*/
+      .recipe-info{
+         width: 50%;
+         padding: 40px;
+         display: flex;
+         flex-direction: column;
+   
+         .recipe-group-form{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+            .recipe-name-input{
+               width: 100%;
+               height: 40px;
+               border-radius: 3px;
+               border: 1px solid #ccc;
+               font-size: 16px;
+               padding-left: 10px;
+               outline: none;
+               color: rgb(145, 145, 145);
+            }
+   
+            .prepare-time-input, .yield-input{
+               width: 250px;
+               height: 40px;
+               border-radius: 3px;
+               border: 1px solid #ccc;
+               font-size: 16px;
+               padding-left: 10px;
+               outline: none;
+               color: rgb(145, 145, 145);
+            }
+   
+            .checkboxes{
+               width: 250px;
+               height: 110px;
+               display: flex;
+               flex-flow: column wrap;
+            }
+   
+   
+            
+         }
+   
+         .form-group-time-yield{
+            flex-direction: row;
+   
+   
+            .time-prepare-section, .yield-section{
+               display: flex;
+               flex-direction: column;
+   
+               div{
+                  display: flex;
+                  flex-direction: row;
+               }
+            }
+   
+            .yield-section{
+               margin-left: 100px;
+            }
+   
+   
+            .form-select{
+               width: 140px;
+               
+            }
+         }
+         
+      }
+
+      /*Prepare Method*/
+      .prepare-method{
+         width: 40%;
+         margin-left: 40px;
+
+         h2{
+            font-size: 25px;
+            font-weight: bold;
+            color: rgb(19, 19, 19);
+            margin-top: 40px;
+         }
+
+         form{
+            .prepare-step-input{
+               width: 70%;
+               height: 40px;
+               border-radius: 3px;
+               border: 1px solid #ccc;
+               font-size: 16px;
+               padding-left: 10px;
+               outline: none;
+               color: rgb(145, 145, 145);
+            }
+
+            .add-btn{
+               width: 130px;
+               height: 40px;
+               background-color: $mainorange;
+               border: none;
+               border-radius: 3px;
+               color: white;
+               cursor: pointer;
+               strong{
+                  font-weight: bold;
+                  margin-right: 5px;
+               }
+            }
+            .add-btn:hover{
+               background-color: rgb(255, 111, 8);
+            }
+         }
+
+         .prepare-method-table{
+            width: 88%;
+            margin-top: 30px;
+            tr:nth-child(odd) {
+               background-color: $lightorange;
+            }
+           
+            tr:nth-child(even) {
+               background-color: #fff;
+            }
+           
+            th {
+               background-color: #fff;
+            }
+
+            .trash-icon{
+               width: 30px;
+               margin-left: 390px;
+               cursor: pointer;
+            }
+         }
+      }
+   }
+
+   /*Ingredients*/
+   .ingredients{
+      width: 60%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+
+      h2{
+         font-size: 25px;
+         font-weight: bold;
+         color: rgb(19, 19, 19);
+         margin-top: 40px;
+      }
+
+      .form-ingredients{
+         display: flex;
+         width: 100%;
+         .form-ingredients-group{
+            width: 100%;
+
+            .flex{
+               display: flex;
+               width: 65%;
+            }
+   
+            .ingredient-name-input{
+               width: 260px;
+               height: 40px;
+               border-radius: 3px;
+               border: 1px solid #ccc;
+               font-size: 16px;
+               padding-left: 10px;
+               outline: none;
+               color: rgb(145, 145, 145);
+            }
+
+            
+
+            
+         }
+
+         .amount-div{
+
+            margin-left: 40px;
+
+            .amount-input{
+               width: 200px;
+               height: 40px;
+               border-radius: 3px;
+               border: 1px solid #ccc;
+               font-size: 16px;
+               padding-left: 10px;
+               outline: none;
+               color: rgb(145, 145, 145);
+            }
+            
+            .form-select{
+               width: 140px;
+            }
+
+            .add-btn{
+               width: 380px;
+               height: 40px;
+               background-color: $mainorange;
+               border: none;
+               border-radius: 3px;
+               color: white;
+               cursor: pointer;
+               strong{
+                  font-weight: bold;
+                  margin-right: 5px;
+               }
+            }
+            .add-btn:hover{
+               background-color: rgb(255, 111, 8);
+            }
+         }
+      }
+      
+      .ingredients-table{
+         width: 76%;
+         margin-top: 30px;
+         tr:nth-child(odd) {
+            background-color: $lightorange;
+         }
+           
+         tr:nth-child(even) {
+            background-color: #fff;
+         }
+           
+         th {
+            background-color: #fff;
+            width: 90%;
+         }
+
+         .trash-icon{
+            width: 30px;
+            margin-left: 390px;
+            cursor: pointer;
+         }
+      }
+   }
+
+   .buttons{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .cancel-btn{
+         width: 180px;
+         height: 40px;
+         margin-top: 25px;
+         margin-bottom: 30px;
+         background-color: rgb(160, 160, 160);
+         border: none;
+         border-radius: 3px;
+         color: rgb(0, 0, 0);
+         cursor: pointer;
+         margin-left: 40px;
+      }
+
+      .save-btn{
+         width: 180px;
+         height: 40px;
+         margin-top: 25px;
+         margin-bottom: 30px;
+         background-color: $mainorange;
+         border: none;
+         border-radius: 3px;
+         color: rgb(255, 255, 255);
+         cursor: pointer;
+         margin-right: 40px;
+
+         strong{
+            font-weight: bold;
+            margin-right: 5px;
+         }
+      }
+   }
+   
+}

@@ -18,7 +18,7 @@
 
       </div>
 
-      <div class="table-section">
+      <div class="table-section" v-if="this.recipies.length > 0">
 
         <table class="table table-striped table-hover recipe-table">
           <thead>
@@ -38,14 +38,14 @@
               <td>{{recipe.tempo_preparo}}</td>
               <td>{{recipe.categoria}}</td>
               <td>John Taylor</td>
-              <td>{{recipe.rendimento}}</td>
+              <td>{{recipe.rendimento_descricao + ' ' + recipe.rendimento_unidade}}</td>
               <td>
                 <div class="dropdown">
                   <button class="dropbtn">Ações</button>
                   <div class="dropdown-content">
                     <a @click="showDetails(recipe)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img class="select-icon" src="@/assets/eye.svg">Visualizar</a>
-                    <a><img class="select-icon" src="@/assets/edit.svg">Editar</a>
-                    <a><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
+                    <a @click="editRecipe(recipe)"><img class="select-icon" src="@/assets/edit.svg">Editar</a>
+                    <a @click="deleteRecipe(recipe)"><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
                   </div>
                 </div>
               </td>
@@ -55,7 +55,12 @@
         </table>
       </div>
 
-      <!-- Modal -->
+      <div class="message-box" v-else>
+        <img src="@/assets/mango.svg" alt="Frutas">
+        <h2>Nenhuma receita cadastrada no sistema</h2>
+      </div>
+
+      <!-- Modal Visulização-->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -65,7 +70,7 @@
             </div>
             <div class="modal-body">
               <p><strong>Tempo de preparo: </strong> {{this.recipe.tempo_preparo}}</p>
-              <p><strong>Rendimento: </strong> {{this.recipe.rendimento}}</p>
+              <p><strong>Rendimento: </strong> {{this.recipe.rendimento_descricao + ' ' + this.recipe.rendimento_unidade}}</p>
               <p><strong>Categorias: </strong> {{this.recipe.categoria}}</p>
 
               <div class="ingredients-div">
@@ -92,6 +97,25 @@
         </div>
       </div>
 
+      <!-- Modal Exclusão-->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exampleModalLabel">Confirmação</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Tem certeza que deseja remover esta receita ? Ao remove-la todos os usuários perderão acesso a ela.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-danger"  @click.prevent="deleteRecipe(recipe)" data-bs-dismiss="modal">Deletar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
   
@@ -101,6 +125,8 @@
 
 import NavBar from '@/components/NavBar/NavBar.vue'
 import Recipe from '@/services/recipies.js'
+import swal from 'sweetalert';
+
 
 export default {
   name: 'Home',
@@ -116,7 +142,8 @@ export default {
         id: undefined,
         nome_receita: '',
         tempo_preparo: '',
-        rendimento: '',
+        rendimento_descricao: '',
+        rendimento_unidade: '',
         categoria: '',
         ingredientes: '',
         modo_de_preparo: '',
@@ -139,7 +166,6 @@ export default {
     listRecipies(){
       Recipe.listRecipies().then(response => {
 
-        console.log(response);
         this.recipies = response.data.content
       })
     },
@@ -149,6 +175,42 @@ export default {
       
       this.ingredients = JSON.parse(this.recipe.ingredientes);
       this.instructions = JSON.parse(this.recipe.modo_de_preparo);
+      
+    },
+
+    editRecipe(recipe){
+      recipe.ingredientes = JSON.parse(recipe.ingredientes);
+      recipe.modo_de_preparo = JSON.parse(recipe.modo_de_preparo);
+
+      this.$router.push({
+        name: 'UpdateRecipe',
+        params: {
+          id: recipe.id,
+        }
+      })
+    },
+
+    deleteRecipe(recipe){
+
+      swal({
+        title: "Tem certeza ?!",
+        text: "Ao remover esta receita todos os usuários perderão acesso a ela.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          Recipe.delete(recipe.id).then(response => {
+            console.log(response);
+            this.listRecipies();
+          })
+          swal("Poof! Receita deletada com sucesso!", {
+            icon: "success",
+          });
+        }
+      });
+
       
     }
   }
