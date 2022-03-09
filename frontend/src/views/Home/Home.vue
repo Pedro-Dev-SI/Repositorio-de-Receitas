@@ -10,8 +10,8 @@
         <div class="search-recipe">
           <h1>Receitas</h1>
           <hr>
-          <input class="search-input" type="text" placeholder="Buscar por...">
-          <button class="search-btn"><img class="search-icon" src="@/assets/search.svg">Pesquisar</button>
+          <input class="search-input" type="text" placeholder="Buscar por..." v-model="this.searchRecipe">
+          <button class="search-btn" @click.prevent="listRecipies()"><img class="search-icon" src="@/assets/search.svg">Pesquisar</button>
         </div>
 
         <router-link style="text-decoration: none;" to="/new-recipe"><button class="add-recipe-btn"><strong class="plus-sign">+</strong> Cadastrar receita</button></router-link>
@@ -34,11 +34,11 @@
           <tbody>
       
             <tr v-for="recipe in this.recipies" :key="recipe.id">
-              <td>{{recipe.nome_receita}}</td>
-              <td>{{recipe.tempo_preparo}}</td>
+              <td>{{recipe.nomeReceita}}</td>
+              <td>{{recipe.tempoPreparo}}</td>
               <td>{{recipe.categoria}}</td>
               <td>John Taylor</td>
-              <td>{{recipe.rendimento_descricao + ' ' + recipe.rendimento_unidade}}</td>
+              <td>{{recipe.rendimentoDescricao + ' ' + recipe.rendimentoUnidade}}</td>
               <td>
                 <div class="dropdown">
                   <button class="dropbtn">Ações</button>
@@ -65,12 +65,12 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title" id="staticBackdropLabel">{{this.recipe.nome_receita}}</h3>
+              <h3 class="modal-title" id="staticBackdropLabel">{{this.recipe.nomeReceita}}</h3>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p><strong>Tempo de preparo: </strong> {{this.recipe.tempo_preparo}}</p>
-              <p><strong>Rendimento: </strong> {{this.recipe.rendimento_descricao + ' ' + this.recipe.rendimento_unidade}}</p>
+              <p><strong>Tempo de preparo: </strong> {{this.recipe.tempoPreparo}}</p>
+              <p><strong>Rendimento: </strong> {{this.recipe.rendimentoDescricao + ' ' + this.recipe.rendimentoUnidade}}</p>
               <p><strong>Categorias: </strong> {{this.recipe.categoria}}</p>
 
               <div class="ingredients-div">
@@ -140,18 +140,23 @@ export default {
       
       recipe:{
         id: undefined,
-        nome_receita: '',
-        tempo_preparo: '',
-        rendimento_descricao: '',
-        rendimento_unidade: '',
+        nomeReceita: '',
+        tempoPreparo: '',
+        rendimentoDescricao: '',
+        rendimentoUnidade: '',
         categoria: '',
         ingredientes: '',
-        modo_de_preparo: '',
+        modoDePreparo: '',
       },
+
+      searchRecipe: '',
+
       recipies: [],
+      searchedRecipies: [],
 
       ingredients: [],
       instructions: [],
+
 
     }
   },
@@ -164,23 +169,36 @@ export default {
   methods:{
 
     listRecipies(){
-      Recipe.listRecipies().then(response => {
 
-        this.recipies = response.data.content
-      })
+      if(this.searchRecipe == ''){
+
+        Recipe.listRecipies().then(response => {
+  
+          this.recipies = response.data.content
+        })
+      }else{  
+
+        Recipe.listSearchedRecipies(this.searchRecipe).then(response => {
+    
+          this.recipies = response.data
+        })
+      }
+      
+     
     },
+
 
     showDetails(recipe){
       this.recipe = recipe;
       
       this.ingredients = JSON.parse(this.recipe.ingredientes);
-      this.instructions = JSON.parse(this.recipe.modo_de_preparo);
+      this.instructions = JSON.parse(this.recipe.modoDePreparo);
       
     },
 
     editRecipe(recipe){
       recipe.ingredientes = JSON.parse(recipe.ingredientes);
-      recipe.modo_de_preparo = JSON.parse(recipe.modo_de_preparo);
+      recipe.modoDePreparo = JSON.parse(recipe.modoDePreparo);
 
       this.$router.push({
         name: 'UpdateRecipe',

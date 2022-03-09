@@ -257,14 +257,14 @@ export default {
          const data = {
             categoria: categoriesStr,
             ingredientes: ingredientsStr,
-            modo_de_preparo: instructionsStr,
-            nome_receita: this.recipe.name,
-            rendimento_descricao: this.recipe.yieldDescription,
-            rendimento_unidade: this.recipe.yieldUnit,
-            tempo_preparo: this.recipe.prepareTime,
+            modoDePreparo: instructionsStr,
+            nomeReceita: this.recipe.name,
+            rendimentoDescricao: this.recipe.yieldDescription,
+            rendimentoUnidade: this.recipe.yieldUnit,
+            tempoPreparo: this.recipe.prepareTime,
          }
 
-         if(data.nome_receita == '' || data.tempo_preparo == '' || data.rendimento_descricao == '' || data.rendimento_unidade == ''|| data.categoria == ''){
+         if(data.nomeReceita == '' || data.tempoPreparo == '' || data.rendimentoDescricao == '' || data.rendimentoUnidade == ''|| data.categoria == ''){
             swal('Oops', 'Preencha todos os dados da receita', 'error');
          }else{
 
