@@ -10,21 +10,21 @@
             <form class="recipe-form">
                <div class="recipe-group-form">
                   <label>Nome da Receita: </label>
-                  <input type="text" class="recipe-name-input" required v-model="this.recipe.nome_receita">
+                  <input type="text" class="recipe-name-input" required v-model="this.recipe.nomeReceita">
                </div>
                
                <div class="recipe-group-form form-group-time-yield">
                   
                   <div class="time-prepare-section">
                      <label>Tempo de preparo: </label>
-                     <input type="text" class="prepare-time-input" required v-model="this.recipe.tempo_preparo">
+                     <input type="text" class="prepare-time-input" required v-model="this.recipe.tempoPreparo">
                   </div>
 
                   <div class="yield-section">
                      <label>Rendimento: </label>
                      <div>
-                        <input type="text" class="yield-input" required v-model="this.recipe.rendimento_descricao">
-                        <select class="form-select" aria-label="Default select example" required v-model="this.recipe.rendimento_unidade">
+                        <input type="text" class="yield-input" required v-model="this.recipe.rendimentoDescricao">
+                        <select class="form-select" aria-label="Default select example" required v-model="this.recipe.rendimentoUnidade">
                            <option selected>unidade(s)</option>
                            <option value="Porção">Porção</option>
                            <option value="Unidade">Unidade(s)</option>
@@ -200,13 +200,13 @@ export default {
 
          recipe:{
             id: undefined,
-            nome_receita: '',
-            tempo_preparo: '',
-            rendimento_descricao: '',
-            rendimento_unidade: '',
+            nomeReceita: '',
+            tempoPreparo: '',
+            rendimentoDescricao: '',
+            rendimentoUnidade: '',
             categoria: [],
             ingredientes: '',
-            modo_de_preparo: '',
+            modoDePreparo: '',
          }, 
 
          ingredients: [],
@@ -260,14 +260,14 @@ export default {
             id: this.id,
             categoria: categoriesStr,
             ingredientes: ingredientsStr,
-            modo_de_preparo: instructionsStr,
-            nome_receita: this.recipe.nome_receita,
-            rendimento_descricao: this.recipe.rendimento_descricao,
-            rendimento_unidade: this.recipe.rendimento_unidade,
-            tempo_preparo: this.recipe.tempo_preparo,
+            modoDePreparo: instructionsStr,
+            nomeReceita: this.recipe.nomeReceita,
+            rendimentoDescricao: this.recipe.rendimentoDescricao,
+            rendimentoUnidade: this.recipe.rendimentoUnidade,
+            tempoPreparo: this.recipe.tempoPreparo,
          }
 
-         if(data.nome_receita == '' || data.tempo_preparo == '' || data.rendimento == '' || data.categoria == ''){
+         if(data.nomeReceita == '' || data.tempoPreparo == '' || data.rendimento == '' || data.categoria == ''){
             swal('Oops', 'Preencha todos os dados da receita', 'error');
          }else{
 
@@ -287,7 +287,7 @@ export default {
       Recipe.getOne(this.id).then(response => {
          this.recipe = response.data;
          this.ingredients = JSON.parse(response.data.ingredientes);
-         this.instructions = JSON.parse(response.data.modo_de_preparo);
+         this.instructions = JSON.parse(response.data.modoDePreparo);
          this.recipe.categoria = this.recipe.categoria.split('|');
          this.recipe.categoria = []
       })

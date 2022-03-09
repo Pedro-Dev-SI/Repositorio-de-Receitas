@@ -29,19 +29,19 @@ public class ReceitaModel implements Serializable {
 	private UUID id;
 	
 	@Column(nullable = false, length = 150)
-	private String nome_receita;
+	private String nomeReceita;
 	@Column(nullable = false, length = 40)
-	private String tempo_preparo;
+	private String tempoPreparo;
 	@Column(nullable = false, length = 4000)
 	private String categoria; //checkbox
 	@Column(nullable = false, length = 70)
-	private String rendimento_descricao;
+	private String rendimentoDescricao;
 	@Column(nullable = false, length = 70)
-	private String rendimento_unidade; //drpodown com campo de texto
+	private String rendimentoUnidade; //drpodown com campo de texto
 	@Column(nullable = false, length = 8000)
 	private String ingredientes;
 	@Column(nullable = false, length = 8000)
-	private String modo_de_preparo;
+	private String modoDePreparo;
 
 	@ManyToOne
 	@JoinColumn(name = "usuarioModel_id")
@@ -52,17 +52,17 @@ public class ReceitaModel implements Serializable {
 		
 	}
 	
-	public ReceitaModel(UUID id, String nome_receita, String tempo_preparo, String categoria,
-		String rendimento_descricao, String rendimento_unidade, String ingredientes, String modo_de_preparo, UsuarioModel usuarioModel) {
+	public ReceitaModel(UUID id, String nomeReceita, String tempoPreparo, String categoria,
+		String rendimentoDescricao, String rendimentoUnidade, String ingredientes, String modoDePreparo, UsuarioModel usuarioModel) {
 		super();
 		this.id = id;
-		this.nome_receita = nome_receita;
-		this.tempo_preparo = tempo_preparo;
+		this.nomeReceita = nomeReceita;
+		this.tempoPreparo = tempoPreparo;
 		this.categoria = categoria;
-		this.rendimento_descricao = rendimento_descricao;
-		this.rendimento_unidade = rendimento_unidade;
+		this.rendimentoDescricao = rendimentoDescricao;
+		this.rendimentoUnidade = rendimentoUnidade;
 		this.ingredientes = ingredientes;
-		this.modo_de_preparo = modo_de_preparo;
+		this.modoDePreparo = modoDePreparo;
 		this.usuarioModel = usuarioModel;
 	}
 

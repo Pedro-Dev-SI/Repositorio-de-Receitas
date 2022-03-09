@@ -7,6 +7,10 @@ export default{
       return api.get('dashboard/recipies');
    },
 
+   listSearchedRecipies:(value)=>{
+      return api.get(`dashboard/filter?nome=${value}`);
+   },
+
    save:(data)=>{
       return api.post('dashboard/new-recipe', data);
    },

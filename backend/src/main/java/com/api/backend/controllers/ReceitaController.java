@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -68,6 +69,13 @@ public class ReceitaController {
 			@RequestBody ReceitaModel receitaModel){
 		
 		return receitaService.update(id, receitaModel);
+	}
+
+	//MÉTODO QUE RETORNA TODAS AS RECEITAS POR NOME
+	@GetMapping("/filter")
+	public ResponseEntity<Object> findByNome(@RequestParam("nome") String nomeReceita) {
+
+		return this.receitaService.findByNome(nomeReceita);
 	}
 
 }

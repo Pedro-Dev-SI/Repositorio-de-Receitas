@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.api.backend.exceptions.RecipeNotFoundException;
 import com.api.backend.model.ReceitaModel;
@@ -89,4 +90,12 @@ public class ReceitaService {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		} 
 	}
+
+	//MÉTODO QUE RETORNA TODAS AS RECEITAS POR NOME
+	public ResponseEntity<Object> findByNome(@RequestParam("nome") String nomeReceita) {
+
+		return ResponseEntity.status(HttpStatus.OK).body(this.receitaRepository.findBynomeReceitaContains(nomeReceita));
+		
+	}
+
 }
