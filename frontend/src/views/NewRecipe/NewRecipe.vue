@@ -11,25 +11,27 @@
             <form class="recipe-form">
                <div class="recipe-group-form">
                   <label>Nome da Receita: </label>
-                  <input type="text" class="recipe-name-input" required v-model="this.recipe.name">
+                  <input type="text" class="recipe-name-input" required v-model="this.recipe.nomeReceita">
                </div>
                
                <div class="recipe-group-form form-group-time-yield">
                   
                   <div class="time-prepare-section">
                      <label>Tempo de preparo: </label>
-                     <input type="text" class="prepare-time-input" required v-model="this.recipe.prepareTime">
+                     <input type="text" class="prepare-time-input" required v-model="this.recipe.tempoPreparo">
                   </div>
 
                   <div class="yield-section">
                      <label>Rendimento: </label>
                      <div>
-                        <input type="text" class="yield-input" required v-model="this.recipe.yieldDescription">
-                        <select class="form-select" aria-label="Default select example" required v-model="this.recipe.yieldUnit">
+                        <input type="text" class="yield-input" required v-model="this.recipe.rendimentoDescricao">
+                        <select class="form-select" aria-label="Default select example" required v-model="this.recipe.rendimentoUnidade">
                            <option selected>unidade(s)</option>
-                           <option value="Porção">Porção</option>
-                           <option value="Unidade">Unidade(s)</option>
-                           <option value="Pessoas">Pessoa(s)</option>
+                           <option value="porção">porção</option>
+                           <option value="un">unidade(s)</option>
+                           <option value="pessoas">pessoa(s)</option>
+                           <option value="L">litros</option>
+                           <option value="g">gramas</option>
                         </select>
                      </div>
                   </div>
@@ -39,56 +41,56 @@
                   <label>Categorias: </label><br>
                   <div class="checkboxes">
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Salgado" id="salgado" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Salgado" id="salgado" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Salgado
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Doce" id="flexCheckDefault" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Doce" id="flexCheckDefault" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Doce
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Vegano" id="flexCheckDefault" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Vegano" id="flexCheckDefault" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Vegano
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Salada" id="flexCheckDefault" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Salada" id="flexCheckDefault" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Salada
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Almoço" id="flexCheckDefault" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Almoço" id="flexCheckDefault" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Almoço
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Sobremesa" id="flexCheckDefault" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Sobremesa" id="flexCheckDefault" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Sobremesa
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Fit" id="flexCheckDefault" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Fit" id="flexCheckDefault" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Fit
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Jantar" id="flexCheckDefault" v-model="this.recipe.categories">
+                        <input class="form-check-input" type="checkbox" value="Jantar" id="flexCheckDefault" v-model="this.recipe.categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Jantar
                         </label>
@@ -143,7 +145,9 @@
                         <option value="kg">quilo</option>
                         <option value="L">litro</option>
                         <option value="mg">miligramas</option>
+                        <option value="ml">mililitros</option>
                         <option value="un">unidade</option>
+                        <option value="cx">caixa</option>
                      </select>
                      <button class="add-btn" @click.prevent="addIngredient"><strong>+</strong>Adicionar</button>
                   </div>
@@ -198,13 +202,13 @@ export default {
    data(){
       return{
          recipe:{
-            name: '',
-            prepareTime: '',
-            yieldDescription: '',
-            yieldUnit: '',
-            categories: [],
-            ingredients: '',
-            instructions: '',
+            nomeReceita: '',
+            tempoPreparo: '',
+            rendimentoDescricao: '',
+            rendimentoUnidade: '',
+            categoria: [],
+            ingredientes: '',
+            modoDePreparo: '',
          },
 
          ingredients: [],
@@ -244,24 +248,24 @@ export default {
       },
 
       addCategory(event){
-         this.recipe.categories += event.target.value + ','
-         console.log(this.recipe.categories)
+         this.recipe.categoria += event.target.value + ','
+         console.log(this.recipe.categoria)
       },
 
       async handleSubmit(){
 
          let ingredientsStr = JSON.stringify(this.ingredients);
          let instructionsStr =   JSON.stringify(this.instructions);
-         let categoriesStr = this.recipe.categories.join(" | ");
+         let categoriesStr = this.recipe.categoria.join(" | ");
 
          const data = {
             categoria: categoriesStr,
             ingredientes: ingredientsStr,
             modoDePreparo: instructionsStr,
-            nomeReceita: this.recipe.name,
-            rendimentoDescricao: this.recipe.yieldDescription,
-            rendimentoUnidade: this.recipe.yieldUnit,
-            tempoPreparo: this.recipe.prepareTime,
+            nomeReceita: this.recipe.nomeReceita,
+            rendimentoDescricao: this.recipe.rendimentoDescricao,
+            rendimentoUnidade: this.recipe.rendimentoUnidade,
+            tempoPreparo: this.recipe.tempoPreparo,
          }
 
          if(data.nomeReceita == '' || data.tempoPreparo == '' || data.rendimentoDescricao == '' || data.rendimentoUnidade == ''|| data.categoria == ''){

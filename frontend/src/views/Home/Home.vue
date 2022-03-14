@@ -57,7 +57,7 @@
 
       <div class="message-box" v-else>
         <img src="@/assets/mango.svg" alt="Frutas">
-        <h2>Nenhuma receita cadastrada no sistema</h2>
+        <h2>Nenhuma receita encontrada</h2>
       </div>
 
       <!-- Modal Visulização-->

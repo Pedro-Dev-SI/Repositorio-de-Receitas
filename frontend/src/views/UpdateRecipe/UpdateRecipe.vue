@@ -26,9 +26,11 @@
                         <input type="text" class="yield-input" required v-model="this.recipe.rendimentoDescricao">
                         <select class="form-select" aria-label="Default select example" required v-model="this.recipe.rendimentoUnidade">
                            <option selected>unidade(s)</option>
-                           <option value="Porção">Porção</option>
-                           <option value="Unidade">Unidade(s)</option>
-                           <option value="Pessoas">Pessoa(s)</option>
+                           <option value="porção">porção</option>
+                           <option value="un">unidade(s)</option>
+                           <option value="pessoas">pessoa(s)</option>
+                           <option value="L">litros</option>
+                           <option value="g">gramas</option>
                         </select>
                      </div>
                   </div>
@@ -142,7 +144,9 @@
                         <option value="kg">quilo</option>
                         <option value="L">litro</option>
                         <option value="mg">miligramas</option>
+                        <option value="ml">mililitros</option>
                         <option value="un">unidade</option>
+                        <option value="cx">caixa</option>
                      </select>
                      <button class="add-btn" @click.prevent="addIngredient"><strong>+</strong>Adicionar</button>
                   </div>
@@ -246,8 +250,8 @@ export default {
       },
 
       addCategory(event){
-         this.recipe.categories += event.target.value + ','
-         console.log(this.recipe.categories)
+         this.recipe.categoria += event.target.value + ','
+         console.log(this.recipe.categoria)
       },
 
       async handleSubmit(){
