@@ -10,15 +10,15 @@
         <div class="search-recipe">
           <h1>Receitas</h1>
           <hr>
-          <input class="search-input" type="text" placeholder="Buscar por..." v-model="this.searchRecipe">
-          <button class="search-btn" @click.prevent="listRecipies()"><img class="search-icon" src="@/assets/search.svg">Pesquisar</button>
+          <input class="search-input" type="text" placeholder="Buscar por..." v-model="pesquisaReceita">
+          <button class="search-btn" @click.prevent="$store.dispatch('listRecipies')"><img class="search-icon" src="@/assets/search.svg">Pesquisar</button>
         </div>
 
         <router-link style="text-decoration: none;" to="/new-recipe"><button class="add-recipe-btn"><strong class="plus-sign">+</strong> Cadastrar receita</button></router-link>
 
       </div>
 
-      <div class="table-section" v-if="this.recipies.length > 0">
+      <div class="table-section" v-if="$store.state.receitas.length > 0">
 
         <table class="table table-striped table-hover recipe-table">
           <thead>
@@ -33,19 +33,19 @@
           </thead>
           <tbody>
       
-            <tr v-for="recipe in this.recipies" :key="recipe.id">
-              <td>{{recipe.nomeReceita}}</td>
-              <td>{{recipe.tempoPreparo}}</td>
-              <td>{{recipe.categoria}}</td>
-              <td>John Taylor</td>
-              <td>{{recipe.rendimentoDescricao + ' ' + recipe.rendimentoUnidade}}</td>
+            <tr v-for="receita in $store.state.receitas" :key="receita.id">
+              <td>{{receita.nomeReceita}}</td>
+              <td>{{receita.tempoPreparo}}</td>
+              <td>{{receita.categoria}}</td>
+              <td>{{$store.state.usuario.primeiroNome + ' ' + $store.state.usuario.ultimoNome}}</td>
+              <td>{{receita.rendimentoDescricao + ' ' + receita.rendimentoUnidade}}</td>
               <td>
                 <div class="dropdown">
                   <button class="dropbtn">Ações</button>
                   <div class="dropdown-content">
-                    <a @click="showDetails(recipe)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img class="select-icon" src="@/assets/eye.svg">Visualizar</a>
-                    <a @click="editRecipe(recipe)"><img class="select-icon" src="@/assets/edit.svg">Editar</a>
-                    <a @click="deleteRecipe(recipe)"><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
+                    <a @click="$store.commit('showDetails', receita)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img class="select-icon" src="@/assets/eye.svg">Visualizar</a>
+                    <a @click="$store.commit('editRecipe', receita)"><img class="select-icon" src="@/assets/edit.svg">Editar</a>
+                    <a @click="$store.dispatch('deleteRecipe', receita)"><img class="select-icon" src="@/assets/trash.svg">Deletar</a>
                   </div>
                 </div>
               </td>
@@ -65,27 +65,27 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title" id="staticBackdropLabel">{{this.recipe.nomeReceita}}</h3>
+              <h3 class="modal-title" id="staticBackdropLabel">{{$store.state.receita.nomeReceita}}</h3>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p><strong>Tempo de preparo: </strong> {{this.recipe.tempoPreparo}}</p>
-              <p><strong>Rendimento: </strong> {{this.recipe.rendimentoDescricao + ' ' + this.recipe.rendimentoUnidade}}</p>
-              <p><strong>Categorias: </strong> {{this.recipe.categoria}}</p>
+              <p><strong>Tempo de preparo: </strong> {{$store.state.receita.tempoPreparo}}</p>
+              <p><strong>Rendimento: </strong> {{$store.state.receita.rendimentoDescricao + ' ' + $store.state.receita.rendimentoUnidade}}</p>
+              <p><strong>Categorias: </strong> {{$store.state.receita.categoria}}</p>
 
               <div class="ingredients-div">
                 <h4>Ingredientes</h4>
                 <hr>
-                <ul v-for="(ingredient, index) in this.ingredients" :key="index" >
-                  <li>{{ ingredient.amount + ' ' + ingredient.amountUnit }} de {{ingredient.ingredient_name}}</li>
+                <ul v-for="(ingrediente, index) in $store.state.ingredientes" :key="index" >
+                  <li>{{ ingrediente.quantidadeIngrediente + ' ' + ingrediente.unidadeMedida }} de {{ingrediente.nomeIngrediente}}</li>
                 </ul>
               </div>
 
               <div class="preparation-div">
                 <h4>Modo de preparo</h4>
                 <hr>
-                <ul v-for="(instruction, index) in this.instructions" :key="index">
-                  <li>{{instruction.step}}</li>
+                <ul v-for="(instrucao, index) in $store.state.instrucoes" :key="index">
+                  <li>{{instrucao.passo}}</li>
                 </ul>
               </div>
 
@@ -110,7 +110,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-danger"  @click.prevent="deleteRecipe(recipe)" data-bs-dismiss="modal">Deletar</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Deletar</button>
             </div>
           </div>
         </div>
@@ -124,9 +124,6 @@
 <script>
 
 import NavBar from '@/components/NavBar/NavBar.vue'
-import Recipe from '@/services/recipies.js'
-import swal from 'sweetalert';
-
 
 export default {
   name: 'Home',
@@ -135,102 +132,22 @@ export default {
     NavBar,
   },
 
-  data(){
-    return{
-      
-      recipe:{
-        id: undefined,
-        nomeReceita: '',
-        tempoPreparo: '',
-        rendimentoDescricao: '',
-        rendimentoUnidade: '',
-        categoria: '',
-        ingredientes: '',
-        modoDePreparo: '',
+  computed: {
+
+    pesquisaReceita: {
+      get(){
+        return this.$store.state.pesquisaReceita
       },
-
-      searchRecipe: '',
-
-      recipies: [],
-      searchedRecipies: [],
-
-      ingredients: [],
-      instructions: [],
-
-
+      set(nomeReceita){
+        this.$store.commit('setPesquisaReceita', nomeReceita)
+      }
     }
+
   },
 
   mounted(){
-    this.listRecipies();
     
-  },
-
-  methods:{
-
-    listRecipies(){
-
-      if(this.searchRecipe == ''){
-
-        Recipe.listRecipies().then(response => {
-  
-          this.recipies = response.data.content
-        })
-      }else{  
-
-        Recipe.listSearchedRecipies(this.searchRecipe).then(response => {
-    
-          this.recipies = response.data
-        })
-      }
-      
-     
-    },
-
-
-    showDetails(recipe){
-      this.recipe = recipe;
-      
-      this.ingredients = JSON.parse(this.recipe.ingredientes);
-      this.instructions = JSON.parse(this.recipe.modoDePreparo);
-      
-    },
-
-    editRecipe(recipe){
-      recipe.ingredientes = JSON.parse(recipe.ingredientes);
-      recipe.modoDePreparo = JSON.parse(recipe.modoDePreparo);
-
-      this.$router.push({
-        name: 'UpdateRecipe',
-        params: {
-          id: recipe.id,
-        }
-      })
-    },
-
-    deleteRecipe(recipe){
-
-      swal({
-        title: "Tem certeza ?!",
-        text: "Ao remover esta receita todos os usuários perderão acesso a ela.",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          Recipe.delete(recipe.id).then(response => {
-            console.log(response);
-            this.listRecipies();
-          })
-          swal("Poof! Receita deletada com sucesso!", {
-            icon: "success",
-          });
-        }
-      });
-
-      
-    }
+    this.$store.dispatch('listRecipies')
   }
 
 }
