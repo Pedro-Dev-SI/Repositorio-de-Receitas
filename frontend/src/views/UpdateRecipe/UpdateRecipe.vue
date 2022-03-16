@@ -10,21 +10,21 @@
             <form class="recipe-form">
                <div class="recipe-group-form">
                   <label>Nome da Receita: </label>
-                  <input type="text" class="recipe-name-input" required v-model="this.recipe.nomeReceita">
+                  <input type="text" class="recipe-name-input" required v-model="nomeReceita">
                </div>
                
                <div class="recipe-group-form form-group-time-yield">
                   
                   <div class="time-prepare-section">
                      <label>Tempo de preparo: </label>
-                     <input type="text" class="prepare-time-input" required v-model="this.recipe.tempoPreparo">
+                     <input type="text" class="prepare-time-input" required v-model="tempoPreparo">
                   </div>
 
                   <div class="yield-section">
                      <label>Rendimento: </label>
                      <div>
-                        <input type="text" class="yield-input" required v-model="this.recipe.rendimentoDescricao">
-                        <select class="form-select" aria-label="Default select example" required v-model="this.recipe.rendimentoUnidade">
+                        <input type="text" class="yield-input" required v-model="rendimentoDescricao">
+                        <select class="form-select" aria-label="Default select example" required v-model="rendimentoUnidade">
                            <option selected>unidade(s)</option>
                            <option value="porção">porção</option>
                            <option value="un">unidade(s)</option>
@@ -40,56 +40,56 @@
                   <label>Categorias: </label><br>
                   <div class="checkboxes">
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Salgado" id="salgado" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Salgado" id="salgado" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Salgado
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Doce" id="flexCheckDefault" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Doce" id="flexCheckDefault" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Doce
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Vegano" id="flexCheckDefault" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Vegano" id="flexCheckDefault" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Vegano
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Salada" id="flexCheckDefault" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Salada" id="flexCheckDefault" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Salada
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Almoço" id="flexCheckDefault" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Almoço" id="flexCheckDefault" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Almoço
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Sobremesa" id="flexCheckDefault" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Sobremesa" id="flexCheckDefault" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Sobremesa
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Fit" id="flexCheckDefault" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Fit" id="flexCheckDefault" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Fit
                         </label>
                      </div>
 
                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Jantar" id="flexCheckDefault" v-model="this.recipe.categoria">
+                        <input class="form-check-input" type="checkbox" value="Jantar" id="flexCheckDefault" v-model="categoria">
                         <label class="form-check-label" for="flexCheckDefault">
                            Jantar
                         </label>
@@ -104,8 +104,8 @@
             <h2>Modo de preparo</h2>
             <form class="form-prepare-method">
                <label>Passo: </label><br>
-               <input type="text" class="prepare-step-input" required v-model="this.newInstruction.step">
-               <button class="add-btn" @click.prevent="addInstruction"><strong>+</strong>Adicionar</button>
+               <input type="text" class="prepare-step-input" required v-model="modoDePreparo">
+               <button class="add-btn" @click.prevent="$store.commit('addInstruction')"><strong>+</strong>Adicionar</button>
             </form>
 
             <table class="table table-striped table-hover prepare-method-table">
@@ -117,9 +117,9 @@
                </thead>
                <tbody>
             
-                  <tr v-for="(instruction, index) in instructions" :key="index">
-                     <td>{{instruction.step}}</td>
-                     <td><a @click.prevent="removeInstruction(index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
+                  <tr v-for="(instrucao, index) in $store.state.instrucoes" :key="index">
+                     <td>{{instrucao.passo}}</td>
+                     <td><a @click.prevent="$store.commit('removeInstruction', index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
                   </tr>
 
                </tbody>
@@ -132,13 +132,13 @@
             <form class="form-ingredients">
                <div class="form-ingredients-group">
                   <label>Nome do Ingrediente: </label><br>
-                  <input type="text" class="ingredient-name-input" required v-model="this.newIngredient.ingredient_name">
+                  <input type="text" class="ingredient-name-input" required v-model="nomeIngrediente">
                </div>
                <div class="form-ingredients-group amount-div">
                   <label>Quantidade: </label><br>
                   <div class="flex">
-                     <input type="text" class="amount-input" required  v-model="this.newIngredient.amount">
-                     <select class="form-select" aria-label="Default select example" required  v-model="this.newIngredient.amountUnit">
+                     <input type="text" class="amount-input" required  v-model="quantidade">
+                     <select class="form-select" aria-label="Default select example" required  v-model="unidadeMedida">
                         <option selected>unidade(s)</option>
                         <option value="g">gramas</option>
                         <option value="kg">quilo</option>
@@ -148,7 +148,7 @@
                         <option value="un">unidade</option>
                         <option value="cx">caixa</option>
                      </select>
-                     <button class="add-btn" @click.prevent="addIngredient"><strong>+</strong>Adicionar</button>
+                     <button class="add-btn" @click.prevent="$store.commit('addIngredient')"><strong>+</strong>Adicionar</button>
                   </div>
                </div>
             </form>
@@ -163,10 +163,10 @@
                </thead>
                <tbody>
             
-                  <tr v-for="(ingredient, index) in this.ingredients" :key="index">
-                     <td>{{ingredient.ingredient_name}}</td>
-                     <td>{{ingredient.amount + ' ' + ingredient.amountUnit}}</td>
-                     <td><a @click.prevent="removeIngredient(index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
+                  <tr v-for="(ingrediente, index) in $store.state.ingredientes" :key="index">
+                     <td>{{ingrediente.nomeIngrediente}}</td>
+                     <td>{{ingrediente.quantidadeIngrediente + ' ' + ingrediente.unidadeMedida}}</td>
+                     <td><a @click.prevent="$store.commit('removeIngredient', index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
                   </tr>
 
                </tbody>
@@ -177,7 +177,7 @@
 
       <div class="buttons">
          <router-link to="/home"><button class="cancel-btn">Cancelar</button></router-link>
-         <button class="save-btn" @click.prevent="handleSubmit">Salvar</button>
+         <button class="save-btn" @click.prevent="$store.dispatch('handleSubmitRecipe')">Salvar</button>
       </div>
 
    </div>
@@ -186,114 +186,109 @@
 <script>
 import NavBar from '@/components/NavBar/NavBar.vue'
 import Recipe from '@/services/recipies.js'
-import swal from 'sweetalert';
 
 
 export default {
 
-   name: 'NewRecipe',
+   name: 'UpdateRecipe',
 
    components: {
       NavBar
    },
 
-   data(){
-      return{
-
-         id: this.$route.params.id,
-
-         recipe:{
-            id: undefined,
-            nomeReceita: '',
-            tempoPreparo: '',
-            rendimentoDescricao: '',
-            rendimentoUnidade: '',
-            categoria: [],
-            ingredientes: '',
-            modoDePreparo: '',
-         }, 
-
-         ingredients: [],
-         newIngredient:{},
-
-         instructions: [],
-         newInstruction:{},
-
-
-
-      }
-   },
-
-   methods: {
-      addIngredient(){
-
-         if(!this.newIngredient.ingredient_name == '' || !this.newIngredient.amount == '' || !this.newIngredient.amountUnit == ''){
-            this.ingredients.push(this.newIngredient);
-            this.newIngredient = {}
+   computed: {
+      nomeReceita: {
+         get(){
+            return this.$store.state.receita.nomeReceita
+         },
+         set(nomeReceita){
+            this.$store.commit('setNomeReceita', nomeReceita)
          }
       },
 
-      removeIngredient(index){
-         this.ingredients.splice(index, 1)
-      },
-
-      addInstruction(){
-
-         if(!this.newInstruction.step == ''){
-            this.instructions.push(this.newInstruction)
-            this.newInstruction = {}
+      tempoPreparo: {
+         get(){
+            return this.$store.state.receita.tempoPreparo
+         },
+         set(tempoPreparo){
+            this.$store.commit('setTempoPreparo', tempoPreparo)
          }
       },
 
-      removeInstruction(index){
-         this.instructions.splice(index, 1)
+      rendimentoDescricao: {
+         get(){
+            return this.$store.state.receita.rendimentoDescricao
+         },
+         set(rendimentoDescricao){
+            this.$store.commit('setRendimentoDescricao', rendimentoDescricao)
+         }
       },
 
-      addCategory(event){
-         this.recipe.categoria += event.target.value + ','
-         console.log(this.recipe.categoria)
+      rendimentoUnidade: {
+         get(){
+            return this.$store.state.receita.rendimentoUnidade
+         },
+         set(rendimentoUnidade){
+            this.$store.commit('setRendimentoUnidade', rendimentoUnidade)
+         }
       },
 
-      async handleSubmit(){
-
-         let ingredientsStr = JSON.stringify(this.ingredients);
-         let instructionsStr =   JSON.stringify(this.instructions);
-         let categoriesStr = this.recipe.categoria.join(" | ");
-
-         const data = {
-            id: this.id,
-            categoria: categoriesStr,
-            ingredientes: ingredientsStr,
-            modoDePreparo: instructionsStr,
-            nomeReceita: this.recipe.nomeReceita,
-            rendimentoDescricao: this.recipe.rendimentoDescricao,
-            rendimentoUnidade: this.recipe.rendimentoUnidade,
-            tempoPreparo: this.recipe.tempoPreparo,
+      categoria: {
+         get(){
+            return this.$store.state.receita.categoria
+         },
+         set(categoria){
+            this.$store.commit('setCategoria', categoria)
          }
+      },
 
-         if(data.nomeReceita == '' || data.tempoPreparo == '' || data.rendimento == '' || data.categoria == ''){
-            swal('Oops', 'Preencha todos os dados da receita', 'error');
-         }else{
-
-            Recipe.update(this.id, data).then(
-               
-               swal('Yeeeeaah', 'Receita editada com sucesso!', 'success'),
-               this.$router.push('/home'),
-            )
+      nomeIngrediente: {
+         get(){
+            return this.$store.state.novoIngrediente.nomeIngrediente
+         },
+         set(nomeIngrediente){
+            this.$store.commit('setNomeIngrediente', nomeIngrediente)
          }
-         
-      }
+      },
 
+      quantidade: {
+         get(){
+            return this.$store.state.novoIngrediente.quantidadeIngrediente
+         },
+         set(quantidade){
+            this.$store.commit('setQuantidadeIngrediente', quantidade)
+         }
+      },
+
+      unidadeMedida: {
+         get(){
+            return this.$store.state.novoIngrediente.unidadeMedida
+         },
+         set(unidadeMedida){
+            this.$store.commit('setUnidadeMedida', unidadeMedida)
+         }
+      },
+
+      modoDePreparo: {
+         get(){
+            return this.$store.state.novaInstrucao.passo
+         },
+         set(modoDePreparo){
+            this.$store.commit('setModoDePreparo', modoDePreparo)
+         }
+      },
+
+      
    },
 
    created(){
 
-      Recipe.getOne(this.id).then(response => {
-         this.recipe = response.data;
-         this.ingredients = JSON.parse(response.data.ingredientes);
-         this.instructions = JSON.parse(response.data.modoDePreparo);
-         this.recipe.categoria = this.recipe.categoria.split('|');
-         this.recipe.categoria = []
+      Recipe.getOne(this.$store.state.receita.id).then(response => {
+         this.$store.state.receita = response.data;
+         this.$store.state.ingredientes = JSON.parse(response.data.ingredientes);
+         this.$store.state.instrucoes = JSON.parse(response.data.modoDePreparo);
+         this.$store.state.receita.categoria = this.$store.state.receita.categoria.split('|');
+         this.$store.state.receita.categoria = []
       })
 
       

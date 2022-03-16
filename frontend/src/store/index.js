@@ -42,6 +42,7 @@ export default createStore({
     //HOME
     listRecepies(state, data){
       state.receitas = data
+      this.commit('getDefaultState')
     },
 
     showDetails(state, receita){
@@ -53,15 +54,34 @@ export default createStore({
 
     editRecipe(state, receita){
 
-      receita.ingredientes = JSON.parse(receita.ingredientes);
-      receita.modoDePreparo = JSON.parse(receita.modoDePreparo);
+      state.receita = receita;
+      state.receita.ingredientes = JSON.parse(receita.ingredientes);
+      state.receita.modoDePreparo = JSON.parse(receita.modoDePreparo);
+
+      console.log(state.receita)
 
       router.push({
         name: 'UpdateRecipe',
         params: {
-          id: receita.id,
+          id: state.receita.id
         }
       })
+    },
+
+    getDefaultState(state){
+      state.receita = {
+        id: undefined,
+        nomeReceita: '',
+        tempoPreparo: '',
+        rendimentoDescricao: '',
+        rendimentoUnidade: '',
+        categoria: [],
+        ingredientes: '',
+        modoDePreparo: '',
+      }
+
+      state.ingredientes = [];
+      state.instrucoes = [];
     },
     
     //HOME - SETTERS
@@ -195,6 +215,7 @@ export default createStore({
       let categoriasStr = this.state.receita.categoria.join(" | ");
 
       const data = {
+        id: this.state.receita.id,
         categoria: categoriasStr,
         ingredientes: ingredientesStr,
         modoDePreparo: instrucoesStr,
