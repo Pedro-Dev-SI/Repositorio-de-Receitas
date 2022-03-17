@@ -30,7 +30,9 @@
                            <option value="un">unidade(s)</option>
                            <option value="pessoas">pessoa(s)</option>
                            <option value="L">litros</option>
+                           <option value="ml">mililitros</option>
                            <option value="g">gramas</option>
+                           <option value="mg">miligramas</option>
                         </select>
                      </div>
                   </div>
@@ -118,7 +120,7 @@
                <tbody>
             
                   <tr v-for="(instrucao, index) in $store.state.instrucoes" :key="index">
-                     <td>{{instrucao.passo}}</td>
+                     <td> <strong>{{index}} -</strong> {{instrucao.passo}}</td>
                      <td><a @click.prevent="$store.commit('removeInstruction', index)"><img src="@/assets/trash.svg" class="trash-icon" alt=""></a></td>
                   </tr>
 

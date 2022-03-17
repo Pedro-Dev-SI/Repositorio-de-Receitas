@@ -1,6 +1,5 @@
 package com.api.backend.model;
 import java.io.Serializable;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +25,7 @@ public class ReceitaModel implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private Long id;
 	
 	@Column(nullable = false, length = 150)
 	private String nomeReceita;
@@ -43,17 +42,17 @@ public class ReceitaModel implements Serializable {
 	@Column(nullable = false, length = 8000)
 	private String modoDePreparo;
 
-	@ManyToOne
-	@JoinColumn(name = "usuarioModel_id")
-	private UsuarioModel usuarioModel;
+	// @ManyToOne
+	// @JoinColumn(name = "usuarioModel_id")
+	// private UsuarioModel usuarioModel;
 	
 	
 	public ReceitaModel() {
 		
 	}
 	
-	public ReceitaModel(UUID id, String nomeReceita, String tempoPreparo, String categoria,
-		String rendimentoDescricao, String rendimentoUnidade, String ingredientes, String modoDePreparo, UsuarioModel usuarioModel) {
+	public ReceitaModel(Long id, String nomeReceita, String tempoPreparo, String categoria,
+		String rendimentoDescricao, String rendimentoUnidade, String ingredientes, String modoDePreparo) {
 		super();
 		this.id = id;
 		this.nomeReceita = nomeReceita;
@@ -63,7 +62,7 @@ public class ReceitaModel implements Serializable {
 		this.rendimentoUnidade = rendimentoUnidade;
 		this.ingredientes = ingredientes;
 		this.modoDePreparo = modoDePreparo;
-		this.usuarioModel = usuarioModel;
+		// this.usuarioModel = usuarioModel;
 	}
 
 }
