@@ -1,7 +1,5 @@
 package com.api.backend.controllers;
 
-import java.util.UUID;
-
 import com.api.backend.model.UsuarioModel;
 import com.api.backend.services.UsuarioService;
 
@@ -17,11 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins="*", maxAge = 3600)
-@RequestMapping("/api/v1") // http://localhost:8080/api/v1
+@RequestMapping("/api/v1/user") // http://localhost:8080/api/v1/user
 public class UsuarioController {
    
    final UsuarioService usuarioService;
@@ -46,23 +45,23 @@ public class UsuarioController {
 
    //MÉTODO GET ONE
    @GetMapping("/{id}")
-   public ResponseEntity<Object> getOneUsuario(@PathVariable(value="id") UUID id){
+   public ResponseEntity<Object> getOneUsuario(@PathVariable(value="id") Long id){
       
       return usuarioService.findById(id);
    }
 
    //MÉTODO DELETE
    @DeleteMapping("/{id}")
-   public ResponseEntity<Object> deletarUsuario(@PathVariable(value="id") UUID id){
+   public ResponseEntity<Object> deletarUsuario(@PathVariable(value="id") Long id){
 
       return usuarioService.delete(id);
    }
    
-   // //MÉTODO DE LOGIN
-   // @PostMapping("/login")
-   // public ResponseEntity<Object> login(@RequestBody UsuarioModel usuarioModel){
-      
-   //    return usuarioService.login(usuarioModel);
-   // }
+   //VALIDAR SENHA
+   @GetMapping("valid-password")
+   public ResponseEntity<Boolean> validarSenha(@RequestParam String email, @RequestParam String senha){
+
+      return usuarioService.validarSenha(email, senha);
+   }
 
 }

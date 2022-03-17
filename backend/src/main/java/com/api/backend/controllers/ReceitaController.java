@@ -1,7 +1,5 @@
 package com.api.backend.controllers;
 
-import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -50,14 +48,14 @@ public class ReceitaController {
 	
 	//MÉTODO GET ONE
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> getOneReceita(@PathVariable(value="id") UUID id){
+	public ResponseEntity<Object> getOneReceita(@PathVariable(value="id") Long id){
 		
 		return receitaService.findById(id);
 	}
 	
 	//MÉTODO DELETE
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deletarReceita(@PathVariable(value="id") UUID id){
+	public ResponseEntity<Object> deletarReceita(@PathVariable(value="id") Long id){
 		
 		return receitaService.delete(id);
 		
@@ -65,7 +63,7 @@ public class ReceitaController {
 	
 	//MÉTODO UPDATE
 	@PutMapping("/update-recipe/{id}")
-	public ResponseEntity<Object> updateReceita(@PathVariable(value="id") UUID id, 
+	public ResponseEntity<Object> updateReceita(@PathVariable(value="id") Long id, 
 			@RequestBody ReceitaModel receitaModel){
 		
 		return receitaService.update(id, receitaModel);

@@ -1,7 +1,6 @@
 package com.api.backend.services;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -39,7 +38,7 @@ public class ReceitaService {
 	}
 	
 	//MÉTODO QUE RETORNA APENAS UMA RECEITA POR ID
-	public ResponseEntity<Object> findById(UUID id) {
+	public ResponseEntity<Object> findById(Long id) {
 		Optional<ReceitaModel> receitaModelOptional = receitaRepository.findById(id);
 
 		try {
@@ -56,7 +55,7 @@ public class ReceitaService {
 	
 	//MÉTODO QUE DELETA UMA RECEITA
 	@Transactional
-	public ResponseEntity<Object> delete(UUID id) {
+	public ResponseEntity<Object> delete(Long id) {
 		Optional<ReceitaModel> receitaModelOptional = receitaRepository.findById(id);
 
 		try {
@@ -74,7 +73,7 @@ public class ReceitaService {
 	}
 
 	//MÉTODO QUE ATUALIZA UMA RECEITA
-	public ResponseEntity<Object> update(UUID id, ReceitaModel receitaModel){
+	public ResponseEntity<Object> update(Long id, ReceitaModel receitaModel){
 
 		Optional<ReceitaModel> receitaModelOptional = receitaRepository.findById(id);
 
