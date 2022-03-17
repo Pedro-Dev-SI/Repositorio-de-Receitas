@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import com.api.backend.exceptions.EmailExistsException;
 import com.api.backend.exceptions.UserNotFoundException;
 import com.api.backend.model.UsuarioModel;
 import com.api.backend.repository.UsuarioRepository;
@@ -36,18 +35,15 @@ public class UsuarioService {
 
       Optional<UsuarioModel> usuarioModelOptional = usuarioRepository.findByEmailContains(usuarioModel.getEmail());
 
-      try {
-         if(usuarioModelOptional.isPresent()) {
-            throw new EmailExistsException("Email já cadastrado no sistema");
-         }
+      if(!usuarioModelOptional.isPresent()) {
+         usuarioModel.setSenha(encoder.encode(usuarioModel.getSenha()));
 
-      } catch (Exception e) {
-         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuarioModel)) ;
       }
 
-      usuarioModel.setSenha(encoder.encode(usuarioModel.getSenha()));
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email já cadastrado!");
 
-      return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuarioModel)) ;
+      
 
    }
 
@@ -93,6 +89,18 @@ public class UsuarioService {
       } catch (Exception e) {
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
       }
+   }
+
+   //MÉTODO QUE VERIFICA UM EMAIL EXISTENTE
+   public Boolean verificaEmail(@RequestParam String email) {
+      Optional<UsuarioModel> usuarioModelOptional = usuarioRepository.findByEmailContains(email);
+
+      if (!usuarioModelOptional.isPresent()){
+         return false;
+      }else{
+         return true;
+      }
+   
    }
 
    //MÉTODO QUE VALIDA UMA SENHA

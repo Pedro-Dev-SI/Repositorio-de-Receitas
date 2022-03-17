@@ -56,6 +56,13 @@ public class UsuarioController {
 
       return usuarioService.delete(id);
    }
+
+   //VERIFICA EMAIL EXISTENTE
+   @GetMapping("/verify-email")
+   public Boolean verificaEmail(@RequestParam String email){
+         
+      return usuarioService.verificaEmail(email);
+   }
    
    //VALIDAR SENHA
    @GetMapping("valid-password")

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import Recipe from '@/services/recipies.js'
+import User from '@/services/user.js';
 import router from '@/router/index.js'
 import swal from 'sweetalert';
 
@@ -27,8 +28,8 @@ export default createStore({
     novaInstrucao:{},
 
     usuario: {
-      primeiroNome: 'John',
-      ultimoNome: 'Taylor',
+      primeiroNome: '',
+      ultimoNome: '',
       email: '',
       senha: '',
       confirmarSenha: '',
@@ -156,8 +157,28 @@ export default createStore({
 
     setModoDePreparo(state, modoDePreparo){
       state.novaInstrucao.passo = modoDePreparo;
-    }
+    },
 
+    //USER - SETTERS
+    setPrimeiroNome(state, primeiroNome){
+      state.usuario.primeiroNome = primeiroNome;
+    },
+
+    setUltimoNome(state, ultimoNome){
+      state.usuario.ultimoNome = ultimoNome;
+    },
+
+    setEmail(state, email){
+      state.usuario.email = email;
+    },
+
+    setSenha(state, senha){
+      state.usuario.senha = senha;
+    },
+
+    setConfirmarSenha(state, confirmarSenha){
+      state.usuario.confirmarSenha = confirmarSenha;
+    }
 
   },
 
@@ -236,6 +257,41 @@ export default createStore({
         )
       }
     },
+
+    //USER
+    handleSubmitUser(){
+
+      const data = {
+        primeiroNome: this.state.usuario.primeiroNome,
+        ultimoNome: this.state.usuario.ultimoNome,
+        email: this.state.usuario.email,
+        senha: this.state.usuario.senha,
+        confirmarSenha: this.state.usuario.confirmarSenha,
+      }
+
+      if(data.primeiroNome == undefined || data.ultimoNome == undefined || data.email == undefined || data.senha == undefined || data.confirmarSenha == undefined) {
+        alert('Preencha todos os campos');
+        return;
+      }else if(data.senha != data.confirmarSenha) {
+        this.state.usuario.valid = false;
+        return;
+      }
+
+      User.findByEmail(data.email).then(response => {
+        
+        if(response.data){
+          swal('Oops', 'Este usuário ja está cadastrado', 'error');
+          this.state.usuario.email = '';
+          return;
+        }else{
+          User.save(data).then(
+            swal('Yeeeeaah', 'Cadastro realizado com sucesso!', 'success'),
+            router.push('/')
+          );
+        }
+      })
+      
+    }
   },
   modules: {
   }

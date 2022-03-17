@@ -3,13 +3,13 @@
     <img class="bg-effect" src="@/assets/fundo.png">
     <div class="register">
       <img class="logo" src="@/assets/logo_gtchef.png" alt="Logo da GTchef">
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="$store.dispatch('handleSubmitUser')">
          
         <label>Primeiro nome</label>
-         <input type="text" v-model="primeiro_nome" placeholder="Primeiro nome...">
+         <input type="text" v-model="primeiroNome" placeholder="Primeiro nome...">
 
          <label>Último nome</label>
-         <input type="text" v-model="ultimo_nome" placeholder="Último nome...">
+         <input type="text" v-model="ultimoNome" placeholder="Último nome...">
 
          <label>E-mail</label>
          <input type="email" v-model="email" placeholder="exemplo@exemplo.com">
@@ -18,9 +18,9 @@
          <input type="password" v-model="senha" placeholder="Sua senha...">
 
          <label>Confirmar senha</label>
-         <input type="password" v-model="confirmar_senha" placeholder="Confirme a senha...">
+         <input type="password" v-model="confirmarSenha" placeholder="Confirme a senha...">
 
-         <p class="danger-warning" v-if="!this.valid">As senhas não coincidem</p>
+         <p class="danger-warning" v-if="!$store.state.usuario.valid">As senhas não coincidem</p>
 
         <button>Cadastrar</button>
         <router-link style="text-decoration: none;" to="/"><a href="#" class="cancel-btn">Cancelar</a></router-link>
@@ -32,50 +32,55 @@
 
 <script>
 
-import User from '@/services/user.js';
-
 export default {
   name: 'Register',
 
-  data(){
-    return{
-      primeiro_nome: '',
-      ultimo_nome: '',
-      email: '',
-      senha: '',
-      confirmar_senha: '',
-      valid: true,
-    }
-  },
-
-  methods: {
-    async handleSubmit() {
-
-      const data = {
-        primeiro_nome: this.primeiro_nome,
-        ultimo_nome: this.ultimo_nome,
-        email: this.email,
-        senha: this.senha,
-        confirmar_senha: this.confirmar_senha,
+  computed:{
+    primeiroNome:{
+      get(){
+        return this.$store.state.usuario.primeiroNome;
+      },
+      set(primeiroNome){
+        this.$store.commit('setPrimeiroNome', primeiroNome);
       }
+      
+    },
 
-      if(data.primeiro_nome == undefined || data.ultimo_nome == undefined || data.email == undefined || data.senha == undefined || data.confirmar_senha == undefined) {
-        alert('Preencha todos os campos');
-        return;
-      }else if(data.senha != data.confirmar_senha) {
-        this.valid = false;
-        return;
+    ultimoNome:{
+      get(){
+        return this.$store.state.usuario.ultimoNome;
+      },
+      set(ultimoNome){
+        this.$store.commit('setUltimoNome', ultimoNome);
       }
+    },
 
-      User.save(data).then(
-        this.$router.push('/')
-      );
+    email:{
+      get(){
+        return this.$store.state.usuario.email;
+      },
+      set(email){
+        this.$store.commit('setEmail', email);
+      }
+    },
 
+    senha:{
+      get(){
+        return this.$store.state.usuario.senha;
+      },
+      set(senha){
+        this.$store.commit('setSenha', senha);
+      }
+    },
 
+    confirmarSenha:{
+      get(){
+        return this.$store.state.usuario.confirmarSenha;
+      },
+      set(confirmarSenha){
+        this.$store.commit('setConfirmarSenha', confirmarSenha);
+      }
     }
-
-    
-
   }
 }
 </script>
