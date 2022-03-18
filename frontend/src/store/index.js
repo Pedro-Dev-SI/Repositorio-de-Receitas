@@ -40,7 +40,7 @@ export default createStore({
 
   mutations: {
 
-    //HOME
+    /* ---------- HOME ---------- */
     listRecepies(state, data){
       state.receitas = data
       this.commit('getDefaultState')
@@ -56,8 +56,6 @@ export default createStore({
     editRecipe(state, receita){
 
       state.receita = receita;
-      state.receita.ingredientes = JSON.parse(receita.ingredientes);
-      state.receita.modoDePreparo = JSON.parse(receita.modoDePreparo);
 
       console.log(state.receita)
 
@@ -90,7 +88,9 @@ export default createStore({
       state.pesquisaReceita = nomeReceita;
     },
 
-    //NEW-RECIPE
+    /* ---------------------------------------- */
+
+    /* ---------- NEW RECIPE ---------- */
     addIngredient(state){
 
       if(!state.novoIngrediente.nomeIngrediente == '' || !state.novoIngrediente.quantidadeIngrediente == '' || !state.novoIngrediente.unidadeMedida == ''){
@@ -158,7 +158,9 @@ export default createStore({
     setModoDePreparo(state, modoDePreparo){
       state.novaInstrucao.passo = modoDePreparo;
     },
+    /* ---------------------------------------- */
 
+    /* ---------- USER ---------- */
     //USER - SETTERS
     setPrimeiroNome(state, primeiroNome){
       state.usuario.primeiroNome = primeiroNome;
@@ -184,7 +186,7 @@ export default createStore({
 
   actions: {
 
-    //Home
+    /* ---------- HOME ---------- */
     listRecipies({ commit }){
 
       if(this.state.pesquisaReceita == ''){
@@ -228,7 +230,9 @@ export default createStore({
       
     },
 
-    //New-Recipe
+    /* ---------------------------------------- */
+    
+    /* ---------- NEW RECIPE ---------- */
     handleSubmitRecipe(){
 
       let ingredientesStr = JSON.stringify(this.state.ingredientes);
@@ -258,7 +262,9 @@ export default createStore({
       }
     },
 
-    //USER
+    /* ---------------------------------------- */
+
+    /* ---------- USER ---------- */
     handleSubmitUser(){
 
       const data = {
