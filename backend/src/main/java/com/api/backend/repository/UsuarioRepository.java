@@ -13,7 +13,5 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long>{
    public Optional<UsuarioModel> findByEmailContains(String email);
 
    public Optional<UsuarioModel> findByEmail(String email);
-
-
    
 }
