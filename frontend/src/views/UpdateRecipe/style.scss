@@ -17,14 +17,15 @@
       border: 1px solid $mainorange;
       box-shadow: 0px 1px 3px rgb(196, 108, 46);
    }
-   .row{
+   .column{
 
+      width: 45%;
       display: flex;
-      flex-direction: row;
-      justify-content: space-around;
+      flex-direction: column;
+      display: block;
       /*Recipe Info*/
       .recipe-info{
-         width: 50%;
+         width: 100%;
          padding: 40px;
          display: flex;
          flex-direction: column;
@@ -94,75 +95,9 @@
          
       }
 
-      /*Prepare Method*/
-      .prepare-method{
-         width: 40%;
-         margin-left: 40px;
-
-         h2{
-            font-size: 25px;
-            font-weight: bold;
-            color: rgb(19, 19, 19);
-            margin-top: 40px;
-         }
-
-         form{
-            .prepare-step-input{
-               width: 70%;
-               height: 40px;
-               border-radius: 3px;
-               border: 1px solid #ccc;
-               font-size: 16px;
-               padding-left: 10px;
-               outline: none;
-               color: rgb(145, 145, 145);
-            }
-
-            .add-btn{
-               width: 130px;
-               height: 40px;
-               background-color: $mainorange;
-               border: none;
-               border-radius: 3px;
-               color: white;
-               cursor: pointer;
-               strong{
-                  font-weight: bold;
-                  margin-right: 5px;
-               }
-            }
-            .add-btn:hover{
-               background-color: rgb(255, 111, 8);
-            }
-         }
-
-         .prepare-method-table{
-            width: 88%;
-            margin-top: 30px;
-            tr:nth-child(odd) {
-               background-color: $lightorange;
-            }
-           
-            tr:nth-child(even) {
-               background-color: #fff;
-            }
-           
-            th {
-               background-color: #fff;
-            }
-
-            .trash-icon{
-               width: 30px;
-               margin-left: 390px;
-               cursor: pointer;
-            }
-         }
-      }
-   }
-
-   /*Ingredients*/
+      /*Ingredients*/
    .ingredients{
-      width: 60%;
+      width: 100%;
       padding: 40px;
       display: flex;
       flex-direction: column;
@@ -262,6 +197,74 @@
          }
       }
    }
+   }
+
+   /*Prepare Method*/
+   .prepare-method{
+      width: 40%;
+      margin-left: 40px;
+
+      h2{
+         font-size: 25px;
+         font-weight: bold;
+         color: rgb(19, 19, 19);
+         margin-top: 40px;
+      }
+
+      form{
+         .prepare-step-input{
+            width: 70%;
+            height: 40px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            padding-left: 10px;
+            outline: none;
+            color: rgb(145, 145, 145);
+         }
+
+         .add-btn{
+            width: 130px;
+            height: 40px;
+            background-color: $mainorange;
+            border: none;
+            border-radius: 3px;
+            color: white;
+            cursor: pointer;
+            strong{
+               font-weight: bold;
+               margin-right: 5px;
+            }
+         }
+         .add-btn:hover{
+            background-color: rgb(255, 111, 8);
+         }
+      }
+
+      .prepare-method-table{
+         width: 88%;
+         margin-top: 30px;
+         tr:nth-child(odd) {
+            background-color: $lightorange;
+         }
+        
+         tr:nth-child(even) {
+            background-color: #fff;
+         }
+        
+         th {
+            background-color: #fff;
+         }
+
+         .trash-icon{
+            width: 30px;
+            margin-left: 390px;
+            cursor: pointer;
+         }
+      }
+   }
+
+   
 
    .buttons{
       width: 100%;

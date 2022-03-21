@@ -43,7 +43,7 @@ export default createStore({
     /* ---------- HOME ---------- */
     listRecepies(state, data){
       state.receitas = data
-      this.commit('getDefaultState')
+      this.commit('getDefaultRecipeState')
     },
 
     showDetails(state, receita){
@@ -67,7 +67,7 @@ export default createStore({
       })
     },
 
-    getDefaultState(state){
+    getDefaultRecipeState(state){
       state.receita = {
         id: undefined,
         nomeReceita: '',
@@ -161,6 +161,18 @@ export default createStore({
     /* ---------------------------------------- */
 
     /* ---------- USER ---------- */
+
+    getDefaultUserState(state){
+      state.usuario = {
+        primeiroNome: '',
+        ultimoNome: '',
+        email: '',
+        senha: '',
+        confirmarSenha: '',
+        valid: true,
+      }
+    },
+
     //USER - SETTERS
     setPrimeiroNome(state, primeiroNome){
       state.usuario.primeiroNome = primeiroNome;
@@ -292,6 +304,7 @@ export default createStore({
         }else{
           User.save(data).then(
             swal('Yeeeeaah', 'Cadastro realizado com sucesso!', 'success'),
+            this.commit('getDefaultUserState'),
             router.push('/')
           );
         }

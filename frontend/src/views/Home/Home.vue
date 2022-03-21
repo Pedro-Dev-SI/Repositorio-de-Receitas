@@ -14,7 +14,7 @@
           <button class="search-btn" @click.prevent="$store.dispatch('listRecipies')"><img class="search-icon" src="@/assets/search.svg">Pesquisar</button>
         </div>
 
-        <router-link style="text-decoration: none;" to="/new-recipe"><button class="add-recipe-btn"><strong class="plus-sign">+</strong> Cadastrar receita</button></router-link>
+        <router-link style="text-decoration: none;" to="/new-recipe"><button @click="$store.commit('getDefaultRecipeState')" class="add-recipe-btn"><strong class="plus-sign">+</strong> Cadastrar receita</button></router-link>
 
       </div>
 
