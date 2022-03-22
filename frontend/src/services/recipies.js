@@ -3,8 +3,8 @@ import api from './api.js';
 export default{
 
 
-   listRecipies:()=>{
-      return api.get('dashboard/recipies');
+   listRecipies:(page)=>{
+      return api.get(`dashboard/recipies?page=${page}`);
    },
 
    listSearchedRecipies:(value)=>{

@@ -4,6 +4,12 @@
     <NavBar/>
     
     <div class="main">
+
+      <div class="routes">
+        <router-link to="/home"><a class="home-link">Home</a></router-link>
+        <img src="@/assets/right-arrow.svg" alt="arrow" class="arrow">
+        <a class="recipies-link">Receitas</a>
+      </div>
       
       <div class="up-div">
 
@@ -115,8 +121,12 @@
           </div>
         </div>
       </div>
+      <hr class="under-table-line">
+
+      <PageButtons/>
 
     </div>
+
   </div>
   
 </template>
@@ -124,12 +134,14 @@
 <script>
 
 import NavBar from '@/components/NavBar/NavBar.vue'
+import PageButtons from '@/components/PageButtons/PageButtons.vue'
 
 export default {
   name: 'Home',
 
   components: {
     NavBar,
+    PageButtons
   },
 
   computed: {

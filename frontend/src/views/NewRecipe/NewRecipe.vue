@@ -3,6 +3,14 @@
    <NavBar/>
    <div class="main">
       
+      <div class="routes">
+        <router-link to="/home"><a class="home-link">Home</a></router-link>
+        <img src="@/assets/right-arrow.svg" alt="arrow" class="arrow">
+        <a class="recipies-link">Receitas</a>
+        <img src="@/assets/right-arrow.svg" alt="arrow" class="arrow">
+        <a class="recipies-link">Cadastrar</a>
+      </div>
+
       <h1>Cadastrar receita</h1>
       <hr>
       <div class="row">
@@ -124,6 +132,8 @@
                            <option value="ml">mililitros</option>
                            <option value="un">unidade</option>
                            <option value="cx">caixa</option>
+                           <option value="xicara(s)">xícara(s)</option>
+                           <option value="colher(s)">colher(s)</option>
                         </select>
                         <button class="add-btn" @click.prevent="$store.commit('addIngredient')"><strong>+</strong>Adicionar</button>
                      </div>

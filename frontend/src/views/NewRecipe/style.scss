@@ -5,6 +5,33 @@
    height: 100vh;
    width: 100%;
 
+   .routes{
+
+      width: 200px;
+      position: absolute;
+      right: 70px;
+      display: flex;
+      justify-content: space-around;
+
+      .arrow{
+         width: 12px;
+      }
+   
+      a{
+         font-size: 15px;
+         text-decoration: none;
+      }
+
+      .home-link{
+         color: $mainorange;
+      }
+
+      .recipies-link{
+         color:rgb(182, 182, 182);
+      }
+      
+   }
+
    h1{
       font-size: 45px;
       color: rgb(19, 19, 19);
@@ -95,108 +122,108 @@
          
       }
 
-      /*Ingredients*/
-   .ingredients{
-      width: 100%;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-
-      h2{
-         font-size: 25px;
-         font-weight: bold;
-         color: rgb(19, 19, 19);
-         margin-top: 40px;
-      }
-
-      .form-ingredients{
-         display: flex;
+         /*Ingredients*/
+      .ingredients{
          width: 100%;
-         .form-ingredients-group{
-            width: 100%;
+         padding: 40px;
+         display: flex;
+         flex-direction: column;
 
-            .flex{
-               display: flex;
-               width: 65%;
-            }
-   
-            .ingredient-name-input{
-               width: 260px;
-               height: 40px;
-               border-radius: 3px;
-               border: 1px solid #ccc;
-               font-size: 16px;
-               padding-left: 10px;
-               outline: none;
-               color: rgb(145, 145, 145);
-            }
-
-            
-
-            
+         h2{
+            font-size: 25px;
+            font-weight: bold;
+            color: rgb(19, 19, 19);
+            margin-top: 40px;
          }
 
-         .amount-div{
+         .form-ingredients{
+            display: flex;
+            width: 100%;
+            .form-ingredients-group{
+               width: 100%;
 
-            margin-left: 40px;
+               .flex{
+                  display: flex;
+                  width: 65%;
+               }
+      
+               .ingredient-name-input{
+                  width: 260px;
+                  height: 40px;
+                  border-radius: 3px;
+                  border: 1px solid #ccc;
+                  font-size: 16px;
+                  padding-left: 10px;
+                  outline: none;
+                  color: rgb(145, 145, 145);
+               }
 
-            .amount-input{
-               width: 200px;
-               height: 40px;
-               border-radius: 3px;
-               border: 1px solid #ccc;
-               font-size: 16px;
-               padding-left: 10px;
-               outline: none;
-               color: rgb(145, 145, 145);
+               
+
+               
             }
-            
-            .form-select{
-               width: 140px;
-            }
 
-            .add-btn{
-               width: 380px;
-               height: 40px;
-               background-color: $mainorange;
-               border: none;
-               border-radius: 3px;
-               color: white;
-               cursor: pointer;
-               strong{
-                  font-weight: bold;
-                  margin-right: 5px;
+            .amount-div{
+
+               margin-left: 40px;
+
+               .amount-input{
+                  width: 200px;
+                  height: 40px;
+                  border-radius: 3px;
+                  border: 1px solid #ccc;
+                  font-size: 16px;
+                  padding-left: 10px;
+                  outline: none;
+                  color: rgb(145, 145, 145);
+               }
+               
+               .form-select{
+                  width: 140px;
+               }
+
+               .add-btn{
+                  width: 380px;
+                  height: 40px;
+                  background-color: $mainorange;
+                  border: none;
+                  border-radius: 3px;
+                  color: white;
+                  cursor: pointer;
+                  strong{
+                     font-weight: bold;
+                     margin-right: 5px;
+                  }
+               }
+               .add-btn:hover{
+                  background-color: rgb(255, 111, 8);
                }
             }
-            .add-btn:hover{
-               background-color: rgb(255, 111, 8);
+         }
+         
+         .ingredients-table{
+            width: 100%;
+            margin-top: 30px;
+            tr:nth-child(odd) {
+               background-color: $lightorange;
+            }
+            
+            tr:nth-child(even) {
+               background-color: #fff;
+            }
+            
+            th {
+               background-color: #fff;
+               width: 90%;
+            }
+
+            .trash-icon{
+               width: 30px;
+               margin-left: 390px;
+               cursor: pointer;
             }
          }
       }
-      
-      .ingredients-table{
-         width: 76%;
-         margin-top: 30px;
-         tr:nth-child(odd) {
-            background-color: $lightorange;
-         }
-           
-         tr:nth-child(even) {
-            background-color: #fff;
-         }
-           
-         th {
-            background-color: #fff;
-            width: 90%;
-         }
-
-         .trash-icon{
-            width: 30px;
-            margin-left: 390px;
-            cursor: pointer;
-         }
-      }
-   }
    }
 
    /*Prepare Method*/
