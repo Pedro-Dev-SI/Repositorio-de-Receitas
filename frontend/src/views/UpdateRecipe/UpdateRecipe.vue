@@ -2,6 +2,15 @@
 
    <NavBar/>
    <div class="main">
+
+      <div class="routes">
+        <router-link to="/home"><a class="home-link">Home</a></router-link>
+        <img src="@/assets/right-arrow.svg" alt="arrow" class="arrow">
+        <a class="recipies-link">Receitas</a>
+        <img src="@/assets/right-arrow.svg" alt="arrow" class="arrow">
+        <a class="recipies-link">Editar</a>
+      </div>
+      
       <h1>Editar Receita</h1>
       <hr>
       <div class="row">

@@ -27,6 +27,12 @@ export default createStore({
     instrucoes: [],
     novaInstrucao:{},
 
+    page: { 
+      pageNumber: 0,
+      totalPages: 0,
+    },
+    pages: [],
+
     usuario: {
       primeiroNome: '',
       ultimoNome: '',
@@ -43,7 +49,6 @@ export default createStore({
     /* ---------- HOME ---------- */
     listRecepies(state, data){
       state.receitas = data
-      this.commit('getDefaultRecipeState')
     },
 
     showDetails(state, receita){
@@ -160,6 +165,18 @@ export default createStore({
     },
     /* ---------------------------------------- */
 
+    /* ---------- PAGES ---------- */
+
+    listPages(state, data){
+      state.page.totalPages = data.totalPages;
+      state.page.pageNumber = data.pageable.pageNumber;
+      let cont = data.totalPages
+      for (let i = 1; i <= cont; i++) {
+        state.pages.push(i);
+      }
+      
+    },
+
     /* ---------- USER ---------- */
 
     getDefaultUserState(state){
@@ -199,13 +216,14 @@ export default createStore({
   actions: {
 
     /* ---------- HOME ---------- */
-    listRecipies({ commit }){
+    listRecipies({ commit }, index){
 
       if(this.state.pesquisaReceita == ''){
 
-        Recipe.listRecipies().then(response => {
-  
-          commit('listRecepies', response.data.content)
+        Recipe.listRecipies(index).then(response => {
+          this.state.pages = [];
+          commit('listPages', response.data);
+          commit('listRecepies', response.data.content);
         })
       }else{  
 
