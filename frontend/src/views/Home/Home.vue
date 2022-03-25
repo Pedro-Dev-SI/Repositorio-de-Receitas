@@ -43,7 +43,7 @@
               <td>{{receita.nomeReceita}}</td>
               <td>{{receita.tempoPreparo}}</td>
               <td>{{receita.categoria}}</td>
-              <td>{{$store.state.usuario.primeiroNome + ' ' + $store.state.usuario.ultimoNome}}</td>
+              <td>John Taylor</td>
               <td>{{receita.rendimentoDescricao + ' ' + receita.rendimentoUnidade}}</td>
               <td>
                 <div class="dropdown">
@@ -67,8 +67,8 @@
       </div>
 
       <!-- Modal Visulização-->
-      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+      <div class="modal fade view-details-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <h3 class="modal-title" id="staticBackdropLabel">{{$store.state.receita.nomeReceita}}</h3>
@@ -121,9 +121,13 @@
           </div>
         </div>
       </div>
+
       <hr class="under-table-line">
 
-      <PageButtons/>
+      <div class="page-buttons" v-if="$store.state.pesquisaReceita == '' ">
+        <PageButtons/>
+      </div>
+      
 
     </div>
 

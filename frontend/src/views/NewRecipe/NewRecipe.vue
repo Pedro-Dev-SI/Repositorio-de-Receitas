@@ -131,9 +131,6 @@
                            <option value="mg">miligramas</option>
                            <option value="ml">mililitros</option>
                            <option value="un">unidade</option>
-                           <option value="cx">caixa</option>
-                           <option value="xicara(s)">xícara(s)</option>
-                           <option value="colher(s)">colher(s)</option>
                         </select>
                         <button class="add-btn" @click.prevent="$store.commit('addIngredient')"><strong>+</strong>Adicionar</button>
                      </div>

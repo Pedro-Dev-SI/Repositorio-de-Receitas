@@ -98,7 +98,16 @@ export default createStore({
     /* ---------- NEW RECIPE ---------- */
     addIngredient(state){
 
-      if(!state.novoIngrediente.nomeIngrediente == '' || !state.novoIngrediente.quantidadeIngrediente == '' || !state.novoIngrediente.unidadeMedida == ''){
+      if(!state.novoIngrediente.nomeIngrediente == ''){
+
+        if(state.novoIngrediente.quantidadeIngrediente == undefined){
+          state.novoIngrediente.quantidadeIngrediente = '';
+        }
+
+        if(state.novoIngrediente.unidadeMedida == undefined){
+          state.novoIngrediente.unidadeMedida = '';
+        }
+
         state.ingredientes.push(state.novoIngrediente);
         state.novoIngrediente = {}
       }
@@ -170,7 +179,7 @@ export default createStore({
     listPages(state, data){
       state.page.totalPages = data.totalPages;
       state.page.pageNumber = data.pageable.pageNumber;
-      let cont = data.totalPages
+      let cont = data.totalPages;
       for (let i = 1; i <= cont; i++) {
         state.pages.push(i);
       }
@@ -229,7 +238,7 @@ export default createStore({
 
         Recipe.listSearchedRecipies(this.state.pesquisaReceita).then(response => {
     
-          commit('listRecepies', response.data)
+          commit('listRecepies', response.data);
         })
       }
       

@@ -1,6 +1,6 @@
 <template>
    <nav>
-      <img class="logo" src="@/assets/logo_gtchef.png">
+      <router-link class="logo" to="/home"><img class="logo" src="@/assets/logo_gtchef.png"></router-link>
 
       <div class="user-section">
          <hr>
